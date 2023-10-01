@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/layout_page/tables_mobile.dart';
+
+class TableRoomMobile extends StatefulWidget {
+  const TableRoomMobile({super.key});
+
+  @override
+  State<TableRoomMobile> createState() => _TableRoomMobileState();
+}
+
+class _TableRoomMobileState extends State<TableRoomMobile> {
+  List<String> rooms = ['Room 1', 'Room 2', 'Room 3', 'Room 4'];
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Tables',
+            style: TextStyle(
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff020f06)),
+          ),
+          bottom: TabBar(
+              isScrollable: true,
+              tabs: List<Tab>.generate(
+                  4,
+                  (index) => Tab(
+                          child: Text(
+                        rooms[index],
+                        style: TextStyle(fontSize: 12.sp),
+                      )))),
+        ),
+        body: TabBarView(
+          children:
+              List<TablesMobile>.generate(4, (index) => const TablesMobile()),
+        ),
+      ),
+    );
+  }
+}
