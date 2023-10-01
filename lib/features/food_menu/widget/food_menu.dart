@@ -5,7 +5,7 @@ import 'dialog_box.dart';
 
 class FoodMenu extends StatefulWidget {
   List<FoodItem> mainFoodList = [];
-  bool isSearching = false;
+  bool isSearching;
 
   FoodMenu({super.key, required this.mainFoodList, this.isSearching = false});
 
