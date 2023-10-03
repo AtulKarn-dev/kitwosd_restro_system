@@ -9,37 +9,57 @@ class TableRoomMobile extends StatefulWidget {
   State<TableRoomMobile> createState() => _TableRoomMobileState();
 }
 
-class _TableRoomMobileState extends State<TableRoomMobile> {
+class _TableRoomMobileState extends State<TableRoomMobile>
+    with TickerProviderStateMixin {
   List<String> rooms = ['Room 1', 'Room 2', 'Room 3', 'Room 4'];
+  late TabController tabController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Tables',
-            style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xff020f06)),
-          ),
-          bottom: TabBar(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tables',
+          style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff020f06)),
+        ),
+      ),
+      body: Column(
+        children: [
+          TabBar(
+              controller: tabController,
               isScrollable: true,
-              tabs: List<Tab>.generate(
+              tabs: List.generate(
                   4,
                   (index) => Tab(
                           child: Text(
                         rooms[index],
                         style: TextStyle(fontSize: 12.sp),
                       )))),
-        ),
-        body: TabBarView(
-          children:
-              List<TablesMobile>.generate(4, (index) => const TablesMobile()),
-        ),
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: List.generate(4, (index) => const TablesMobile()),
+            ),
+          ),
+        ],
       ),
     );
   }

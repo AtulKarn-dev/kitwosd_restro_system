@@ -193,3 +193,4 @@ class _FoodListMobileState extends State<FoodListMobile>
     );
   }
 }
+

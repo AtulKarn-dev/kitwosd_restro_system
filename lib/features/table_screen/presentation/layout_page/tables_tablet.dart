@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_orders/presentation/food_orders.dart';
+import 'package:kitwosd_restro_system/features/table_screen/controller/table_room_controller.dart';
 import 'package:kitwosd_restro_system/features/table_screen/response/table_room_response.dart';
 
 class Tables extends StatefulWidget {
@@ -32,25 +33,13 @@ class _TablesState extends State<Tables> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.all(12.r),
-      child: GridView.count(
-        crossAxisCount: 4,
-        mainAxisSpacing: 50,
-        children: const [
-          // FutureBuilder(
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          TableWidget()
-          // } else {
-          //       // return const Center(child: CircularProgressIndicator());
-          //     }
-          //   },
-          // )
-        ],
-      ),
-    ));
+    return Padding(
+        padding: EdgeInsets.all(12.r),
+        child: GridView.count(
+            crossAxisCount: 4,
+            mainAxisSpacing: 50,
+            children: List.generate(
+                14, (index) => const TableWidget())));
   }
 }
 
@@ -64,7 +53,6 @@ class TableWidget extends StatefulWidget {
 }
 
 class _TableState extends State<TableWidget> {
-  String? status;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -84,13 +72,13 @@ class _TableState extends State<TableWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              /* widget.table!.tableNumber*/ 'Table 1',
+              widget.table!.tableNumber,
               style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w300),
             ),
             SizedBox(
               width: 4.w,
             ),
-            status == 'occupied'
+            widget.table!.status == 'occupied'
                 ? CircleAvatar(
                     backgroundColor: Colors.red,
                     radius: 6.r,
