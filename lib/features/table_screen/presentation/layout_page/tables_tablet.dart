@@ -26,7 +26,10 @@ class _TablesState extends State<Tables> {
                   crossAxisCount: 4,
                   mainAxisSpacing: 50,
                   children: List.generate(
-                      data.length, (index) => TableWidget(table: data[index],)));
+                      data.length,
+                      (index) => TableWidget(
+                            table: data[index],
+                          )));
             } else {
               return const Center(child: CircularProgressIndicator());
             }
@@ -41,7 +44,7 @@ class TableWidget extends StatefulWidget {
   const TableWidget({super.key, this.table});
 
   @override
-  State<StatefulWidget> createState() => _TableState();
+  State<TableWidget> createState() => _TableState();
 }
 
 class _TableState extends State<TableWidget> {
@@ -64,7 +67,7 @@ class _TableState extends State<TableWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              widget.table!.tableNumber,
+           'Table ${widget.table!.tableNumber.split(". ")[1]}' ,
               style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w300),
             ),
             SizedBox(
