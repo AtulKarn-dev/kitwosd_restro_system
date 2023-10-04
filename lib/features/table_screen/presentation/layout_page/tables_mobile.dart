@@ -27,7 +27,7 @@ class _TablesMobileState extends State<TablesMobile> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FoodOrders()));
+                                builder: (context) =>  FoodOrders(id: 1)));
                       },
                       icon: Image.asset(
                         'assets/images/table-removebg-preview.png',
@@ -46,3 +46,4 @@ class _TablesMobileState extends State<TablesMobile> {
         ));
   }
 }
+

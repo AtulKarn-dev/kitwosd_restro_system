@@ -56,7 +56,7 @@ class _TableState extends State<TableWidget> {
         IconButton(
             onPressed: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const FoodOrders()));
+                  MaterialPageRoute(builder: (context) =>  FoodOrders(id: widget.table!.id,)));
             },
             icon: Image.asset(
               'assets/images/table-removebg-preview.png',

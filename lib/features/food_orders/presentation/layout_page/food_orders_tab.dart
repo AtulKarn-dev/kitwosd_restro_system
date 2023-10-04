@@ -7,7 +7,8 @@ import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart
 import 'package:provider/provider.dart';
 
 class FoodOrdersTab extends StatefulWidget {
-  const FoodOrdersTab({super.key, this.tables});
+  final int id;
+  const FoodOrdersTab({super.key, this.tables,required this.id});
 
   final String? tables;
 
@@ -64,7 +65,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
             Row(
               children: [
                 Text(
-                  'Table ',
+                  'Table ${widget.id}',
                   style: TextStyle(
                       fontSize: 10.sp,
                       color: Colors.black,
