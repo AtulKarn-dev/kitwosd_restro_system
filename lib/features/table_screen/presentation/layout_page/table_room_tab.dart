@@ -54,34 +54,36 @@ class _TableRoomTabState extends State<TableRoomTab>
                       fit: BoxFit.contain))),
         ],
       ),
-      body: Column(
-        children: [
-          FutureBuilder<List<String>?>(
-              future: TableRoomController().getRoom(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TabBar(
+      body: FutureBuilder<List<int>?>(
+          future: TableRoomController().getRoom(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<int> data = snapshot.data!;
+              return Column(
+                children: [
+                  TabBar(
                       controller: tabController,
                       isScrollable: true,
                       tabs: List<Tab>.generate(
-                          snapshot.data!.length,
+                          data.length,
                           (index) => Tab(
                                   child: Text(
-                                "Room ${snapshot.data![index]}",
+                                "Room ${data[index]}",
                                 style: TextStyle(fontSize: 10.sp),
-                              ))));
-                } else {
-                  return  const Center(child: CircularProgressIndicator());
-                }
-              }),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: List<Tables>.generate(1, (index) => const Tables()),
-            ),
-          ),
-        ],
-      ),
+                              )))),
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      children: List<Tables>.generate(data.length,
+                          (index) => Tables(roomNumber: data[index])),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }

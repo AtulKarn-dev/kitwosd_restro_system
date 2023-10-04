@@ -5,41 +5,33 @@ import 'package:kitwosd_restro_system/features/table_screen/controller/table_roo
 import 'package:kitwosd_restro_system/features/table_screen/response/table_room_response.dart';
 
 class Tables extends StatefulWidget {
-  const Tables({super.key});
+  final int roomNumber;
+  const Tables({super.key, required this.roomNumber});
 
   @override
   State<Tables> createState() => _TablesState();
 }
 
 class _TablesState extends State<Tables> {
-  // bool isLoading = false;
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   getData();
-  // }
-
-  // getData() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-
-  //   var res = await TableRoomController().getTables();
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.all(12.r),
-        child: GridView.count(
-            crossAxisCount: 4,
-            mainAxisSpacing: 50,
-            children: List.generate(
-                14, (index) => const TableWidget())));
+        child: FutureBuilder<List<RoomTable>?>(
+          future: TableRoomController().getTables(widget.roomNumber),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<RoomTable>? data = snapshot.data!;
+              return GridView.count(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 50,
+                  children: List.generate(
+                      data.length, (index) => TableWidget(table: data[index],)));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ));
   }
 }
 

@@ -14,20 +14,17 @@ import '../../../network/client_info.dart';
  */
 
 class TableRoomController {
-  Future<List<String>?> getRoom() async {
+  Future<List<int>?> getRoom() async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
-      // var formData = FormData.fromMap(map);
-      // String data = json.encode(map);
 
-      // dio.options.headers['content_type'] = 'multipart/form-data';
       response = await dio.get("rooms");
       if (response.statusCode == 200) {
         RoomsResponse roomsResponse = roomsResponseFromJson(response.data!);
-        List<String> mainData = [];
+        List<int> mainData = [];
         for (Datum data in roomsResponse.data) {
-          mainData.add(data.name.split(". ")[1]);
+          mainData.add(data.id);
         }
         return mainData;
       } else {
@@ -46,26 +43,20 @@ class TableRoomController {
     }
   }
 
-  Future<List<String>?> getTables() async {
+  Future<List<RoomTable>?> getTables(int roomNumber) async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
-      // var formData = FormData.fromMap(map);
-      // String data = json.encode(map);
 
-      // dio.options.headers['content_type'] = 'multipart/form-data';
       response = await dio.get("rooms");
       if (response.statusCode == 200) {
         RoomsResponse roomsResponse = roomsResponseFromJson(response.data!);
-        List<String> listTable = [];
-        List<String> listStatus = [];
-        for (Datum data in roomsResponse.data) {
-          for (RoomTable table in data.tables) {
-            listTable.add(table.tableNumber.split(". ")[1]);
-            listStatus.add(table.status!);
+        for (Datum room in roomsResponse.data) {
+          if (room.id == roomNumber) {
+            return room.tables;
           }
         }
-        return listTable;
+        return null;
       } else {
         return null;
       }
