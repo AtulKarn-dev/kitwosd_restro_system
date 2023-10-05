@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
@@ -38,15 +39,33 @@ class FoodMenuState extends State<FoodMenu> {
                 return ListTile(
                   dense: true,
                   visualDensity: const VisualDensity(vertical: 4),
-                  leading: Container(
+                  leading: SizedBox(
                       width: isTablet ? 100.h : 80.h,
                       height: isTablet ? 100.w : 80.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        image: DecorationImage(
-                            image: NetworkImage(foodItem.image),
-                            fit: BoxFit.fill),
-                      )),
+                      child: Image(
+                          image: NetworkImage(foodItem.image),
+                          fit: BoxFit.fill,
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
+                            return frame != null
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    clipBehavior: Clip.hardEdge,
+                                    child: child,
+                                  )
+                                : child;
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          })),
                   title: Text(foodItem.title,
                       style: TextStyle(
                         color: const Color(0xff020f06),
@@ -94,4 +113,3 @@ class FoodMenuState extends State<FoodMenu> {
     }
   }
 }
-

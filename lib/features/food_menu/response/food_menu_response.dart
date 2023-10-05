@@ -83,7 +83,7 @@ class Burger {
   factory Burger.fromJson(Map<String, dynamic> json) => Burger(
         id: json["id"],
         title: json["title"],
-        image: json["image"],
+        image: 'http://demo1.kitwosd.com/images/photos/${json["image"]}',
         status: json["status"],
         categoryId: json["category_id"],
         typeId: json["type_id"],
