@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/presentation/food_list.dart';
-import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_list_item.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:provider/provider.dart';
@@ -104,13 +104,13 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                       builder: (context, provider, child) => ListView.separated(
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            FoodItem item = provider.mainFoodList[index];
+                            Burger item = provider.mainFoodList[index];
                             return OrderListTile(
                               id: index,
                               sn: index + 1,
-                              subtitle: item.subtitle!,
-                              title: item.title!,
-                              price: item.price!,
+                              subtitle: item.description,
+                              title: item.title,
+                              price: item.currentPrice,
                             );
                           },
                           separatorBuilder: (context, index) {

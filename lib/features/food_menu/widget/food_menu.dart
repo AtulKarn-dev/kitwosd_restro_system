@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import '../../../widget/helper/function.dart';
 import 'dialog_box.dart';
 
 class FoodMenu extends StatefulWidget {
-  List<FoodItem> mainFoodList = [];
+  List<Burger> mainFoodList = [];
   bool isSearching;
 
   FoodMenu({super.key, required this.mainFoodList, this.isSearching = false});
@@ -32,7 +33,7 @@ class FoodMenuState extends State<FoodMenu> {
                   ),
               itemCount: widget.mainFoodList.length,
               itemBuilder: (context, index) {
-                FoodItem foodItem = widget.mainFoodList[index];
+                Burger foodItem = widget.mainFoodList[index];
                 int id = index;
                 return ListTile(
                   dense: true,
@@ -43,19 +44,17 @@ class FoodMenuState extends State<FoodMenu> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.r),
                         image: DecorationImage(
-                            image: AssetImage(
-                              foodItem.image!,
-                            ),
+                            image: NetworkImage(foodItem.image),
                             fit: BoxFit.fill),
                       )),
-                  title: Text(foodItem.title!,
+                  title: Text(foodItem.title,
                       style: TextStyle(
                         color: const Color(0xff020f06),
                         fontWeight: FontWeight.w300,
                         fontSize: isTablet ? 8.sp : 12.sp,
                       )),
                   subtitle: Text(
-                    foodItem.subtitle!,
+                    foodItem.description,
                     style: TextStyle(
                         color: const Color(0xff868686),
                         fontWeight: FontWeight.w400,
@@ -63,14 +62,14 @@ class FoodMenuState extends State<FoodMenu> {
                   ),
                   trailing: Padding(
                     padding: EdgeInsets.only(
-                      top: 10.h,
+                      top: 4.h,
                     ),
                     child: Column(
                       children: [
                         Text(
-                          foodItem.price!,
+                          'Rs.${foodItem.currentPrice}',
                           style: TextStyle(
-                              fontSize: isTablet ? 4.sp : 10.sp,
+                              fontSize: isTablet ? 5.sp : 10.sp,
                               fontWeight: FontWeight.w600,
                               color: const Color(0xff6f7773)),
                         ),
@@ -79,10 +78,11 @@ class FoodMenuState extends State<FoodMenu> {
                               onPressed: () {
                                 dialogBox(context, id, widget.isSearching);
                               },
-                              child: const Text(
+                              child: Text(
                                 'Add Item',
                                 style: TextStyle(
-                                    color: Color(0xffF8B64C),
+                                    color: const Color(0xffF8B64C),
+                                    fontSize: isTablet ? 5.sp : 10.sp,
                                     fontWeight: FontWeight.w800),
                               )),
                         )
@@ -95,10 +95,3 @@ class FoodMenuState extends State<FoodMenu> {
   }
 }
 
-class FoodItem {
-  String? title;
-  String? subtitle;
-  String? image;
-  String? price;
-  FoodItem(this.title, this.subtitle, this.price, this.image);
-}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
 import 'package:kitwosd_restro_system/widget/ripple.dart';
 import '../../../widget/my_chip.dart';
@@ -9,16 +10,16 @@ String selectedDietary = 'any';
 String? price;
 
 StatefulBuilder searchWidget(
-    BuildContext context, FoodMenu menu, List<FoodItem> item) {
+    BuildContext context, FoodMenu menu, List<Burger> item) {
   final List<String> entries = ['\$', '\$\$', '\$\$\$', '\$\$\$\$'];
-  List<FoodItem> chinese = [
-    FoodItem(
-      'Fried Rice on Pot',
-      'Shortbread, chocolate turtle cookies, and red velvet.',
-      'Rs.500',
-      'assets/images/fried_rice.jpg',
-    ),
-  ];
+  // List<FoodItem> chinese = [
+  //   FoodItem(
+  //     'Fried Rice on Pot',
+  //     'Shortbread, chocolate turtle cookies, and red velvet.',
+  //     'Rs.500',
+  //     'assets/images/fried_rice.jpg',
+  //   ),
+  // ];
   List<String?> priceRange = ['1', '2', '3', '4'];
   return StatefulBuilder(builder: (context, setState) {
     return Row(
@@ -311,7 +312,7 @@ StatefulBuilder searchWidget(
                       if (selectedCategories == 'c') {
                         if (selectedDietary == 'g') {
                           setState(() {
-                            menu = FoodMenu(mainFoodList: chinese);
+                            // menu = FoodMenu(mainFoodList: );
                           });
                         } else {
                           setState(() {

@@ -1,32 +1,26 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:kitwosd_restro_system/error/exceptions.dart';
+import 'package:kitwosd_restro_system/error/http_exceptions.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/network/client_info.dart';
 
-import 'package:kitwosd_restro_system/features/table_screen/response/table_room_response.dart';
-
-import '../../../error/exceptions.dart';
-import '../../../error/http_exceptions.dart';
-import '../../../network/client_info.dart';
-
-/*
-
-"Room no. 1" ~ split ". " => ["Room no","1"]
- */
-
-class TableRoomController {
-  Future<List<int>?> getRoom() async {
+class FoodMenuController {
+  Future<List<String>?> getMenuCategories() async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
 
-      response = await dio.get("rooms");
+      response = await dio.get("menu-items");
       if (response.statusCode == 200) {
-        RoomsResponse roomsResponse = roomsResponseFromJson(response.data!);
-        List<int> mainData = [];
-        for (Datum data in roomsResponse.data) {
-          mainData.add(data.id);
+        MenuItemsResponse menuItemsResponse =
+            menuItemsResponseFromJson(response.data!);
+        List<String>? categories = [];
+        for (Burger item in menuItemsResponse.data.burger) {
+          categories.add(item.categories.name);
         }
-        return mainData;
+        return categories;
       } else {
         return null;
       }
@@ -43,20 +37,20 @@ class TableRoomController {
     }
   }
 
-  Future<List<RoomTable>?> getTables(int roomNumber) async {
+  Future<List<Burger>?> getMenuList() async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
 
-      response = await dio.get("rooms");
+      response = await dio.get("menu-items");
       if (response.statusCode == 200) {
-        RoomsResponse roomsResponse = roomsResponseFromJson(response.data!);
-        for (Datum room in roomsResponse.data) {
-          if (room.id == roomNumber) {
-            return room.tables;
-          }
+        MenuItemsResponse menuItemsResponse =
+            menuItemsResponseFromJson(response.data!);
+        List<Burger> showingList = [];
+        for (Burger item in menuItemsResponse.data.burger) {
+          showingList.add(item);
         }
-        return null;
+        return showingList;
       } else {
         return null;
       }
