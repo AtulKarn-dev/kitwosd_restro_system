@@ -3,10 +3,13 @@ import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_resp
 
 class FoodOrderProvider extends ChangeNotifier {
   List<Burger> mainFoodList = [];
-  static List<Burger> showingList = [
-  ];
+  static List<Burger> showingList = [];
   List<Burger> displayList = showingList;
   List<Burger> foodList = showingList;
+
+  static void loadFoodList(List<Burger> list) {
+    showingList = list;
+  }
 
   void addItem(int id, bool isSearching) {
     Burger item = isSearching ? displayList[id] : foodList[id];

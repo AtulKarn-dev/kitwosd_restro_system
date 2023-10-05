@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
+import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 
 class MenuTabBarWidget extends StatefulWidget {
   final List<String> categories;
@@ -20,7 +21,8 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: widget.categories.length, vsync: this);
+    tabController =
+        TabController(length: widget.categories.length, vsync: this);
   }
 
   @override
@@ -32,8 +34,8 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
   @override
   Widget build(BuildContext context) {
     // FoodOrderProvider provider = context.read<FoodOrderProvider>();
-   
-   List<String> categories = widget.categories;
+
+    List<String> categories = widget.categories;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -61,16 +63,18 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
               Expanded(
                 child: FutureBuilder<List<Burger>?>(
                   future: FoodMenuController().getMenuList(),
-                  builder:(context, snapshot) {
-                    if(snapshot.hasData){
-                      List<Burger>? data = snapshot.data!;
-                    return TabBarView(
-                      controller: tabController,
-                      children: List.generate(categories.length, (index) => FoodMenu(mainFoodList:data)));
-                   }
-                   else {
-                    return const Center(child: CircularProgressIndicator());
-                   }}, 
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Burger> data = snapshot.data!;
+                      FoodOrderProvider.loadFoodList(data);
+                      return TabBarView(
+                          controller: tabController,
+                          children: List.generate(categories.length,
+                              (index) => FoodMenu(mainFoodList: data)));
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
               ),
               const VerticalDivider(
