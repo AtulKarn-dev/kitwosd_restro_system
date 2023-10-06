@@ -1,12 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 import 'package:provider/provider.dart';
 
-Future dialogBox(BuildContext context,int id, bool isSearching) {
-  String selectedStatus = "Pending";
+Future dialogBox(BuildContext context, int id, bool isSearching) {
   int itemCount = 1;
   bool isSelected1 = false;
   bool isSelected2 = false;
@@ -60,41 +60,53 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                             shape: BoxShape.rectangle,
                             border: Border.all(color: Colors.grey),
                           ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                                isDense: true,
-                                value: selectedStatus,
-                                items: [
-                                  DropdownMenuItem(
-                                    value: 'Pending',
-                                    child: Text(
-                                      'Pending',
-                                      style: TextStyle(
-                                          fontSize: isTablet ? 4.sp : 10.sp),
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Cooking',
-                                    child: Text(
-                                      'Cooking',
-                                      style: TextStyle(
-                                          fontSize: isTablet ? 4.sp : 10.sp),
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Served',
-                                    child: Text(
-                                      'Ready to be served',
-                                      style: TextStyle(
-                                          fontSize: isTablet ? 4.sp : 10.sp),
-                                    ),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedStatus = value!;
-                                  });
-                                }),
+                          child: FutureBuilder<List<Addon>?>(
+                            future: FoodMenuController().getVariants(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<Addon> data = snapshot.data!;
+                                String selectedValue = data[0].id.toString();
+                                return DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                      isDense: true,
+                                      value: selectedValue,
+                                      items: variants(data),
+                                      //   DropdownMenuItem(
+                                      //     value: '1',
+                                      //     child: Text(
+                                      //       'Pending',
+                                      //       style: TextStyle(
+                                      //           fontSize: isTablet ? 4.sp : 10.sp),
+                                      //     ),
+                                      //   ),
+                                      //   DropdownMenuItem(
+                                      //     value: '2',
+                                      //     child: Text(
+                                      //       'Cooking',
+                                      //       style: TextStyle(
+                                      //           fontSize: isTablet ? 4.sp : 10.sp),
+                                      //     ),
+                                      //   ),
+                                      //   DropdownMenuItem(
+                                      //     value: '3',
+                                      //     child: Text(
+                                      //       'Ready to be served',
+                                      //       style: TextStyle(
+                                      //           fontSize: isTablet ? 4.sp : 10.sp),
+                                      //     ),
+                                      //   ),
+                                      // ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedValue = value!;
+                                        });
+                                      }),
+                                );
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            },
                           ),
                         )
                       ]),
@@ -167,8 +179,8 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
               isTablet
                   ? CheckboxListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
-                      activeColor: const Color(0xffeea734), 
-                    side: const BorderSide( color: Color(0xffeea734)), 
+                      activeColor: const Color(0xffeea734),
+                      side: const BorderSide(color: Color(0xffeea734)),
                       value: isSelected1,
                       onChanged: (newValue) {
                         setState(() {
@@ -200,8 +212,8 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                           style: TextStyle(color: Color(0xffeea734)),
                         ),
                         Checkbox(
-                           side: const BorderSide( color: Color(0xffeea734)),
-                    activeColor: const Color(0xffeea734),  
+                          side: const BorderSide(color: Color(0xffeea734)),
+                          activeColor: const Color(0xffeea734),
                           value: isSelected1,
                           onChanged: (newValue) {
                             setState(() {
@@ -213,8 +225,8 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                     ),
               isTablet
                   ? CheckboxListTile(
-                    side: const BorderSide( color: Color(0xffeea734)),
-                    activeColor: const Color(0xffeea734), 
+                      side: const BorderSide(color: Color(0xffeea734)),
+                      activeColor: const Color(0xffeea734),
                       contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
                       value: isSelected2,
                       onChanged: (newValue) {
@@ -237,8 +249,8 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                           ),
                         ),
                         Checkbox(
-                          side: const BorderSide( color: Color(0xffeea734)),
-                    activeColor: const Color(0xffeea734),  
+                          side: const BorderSide(color: Color(0xffeea734)),
+                          activeColor: const Color(0xffeea734),
                           value: isSelected2,
                           onChanged: (newValue) {
                             setState(() {
@@ -252,7 +264,7 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                   ? CheckboxListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
                       activeColor: const Color(0xffeea734),
-                       side: const BorderSide( color: Color(0xffeea734)),
+                      side: const BorderSide(color: Color(0xffeea734)),
                       value: isSelected3,
                       onChanged: (newValue) {
                         setState(() {
@@ -284,8 +296,8 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                           style: TextStyle(color: Color(0xffeea734)),
                         ),
                         Checkbox(
-                           side: const BorderSide( color: Color(0xffeea734)),
-                    activeColor: const Color(0xffeea734),  
+                          side: const BorderSide(color: Color(0xffeea734)),
+                          activeColor: const Color(0xffeea734),
                           value: isSelected3,
                           onChanged: (newValue) {
                             setState(() {
@@ -339,7 +351,9 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
                     width: isTablet ? 40.w : 100.w,
                     child: ElevatedButton(
                       onPressed: () {
-                        context.read<FoodOrderProvider>().addItem(id, isSearching);
+                        context
+                            .read<FoodOrderProvider>()
+                            .addItem(id, isSearching);
                         Navigator.pop(context);
                       },
                       style: ButtonStyle(
@@ -364,3 +378,16 @@ Future dialogBox(BuildContext context,int id, bool isSearching) {
   );
 }
 
+List<DropdownMenuItem<String>>? variants(List<Addon> variantItems) {
+  List<DropdownMenuItem<String>> variants = [];
+  for (Addon items in variantItems) {
+    variants.add(DropdownMenuItem(
+      value: items.id.toString(),
+      child: Text(
+        '${items.title}:  Rs. ${items.currentPrice}',
+        style: TextStyle(fontSize: isTablet ? 4.sp : 10.sp),
+      ),
+    ));
+  }
+  return variants;
+}
