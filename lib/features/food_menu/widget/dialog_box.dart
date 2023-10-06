@@ -66,41 +66,9 @@ Future dialogBox(BuildContext context, int id, bool isSearching) {
                               if (snapshot.hasData) {
                                 List<Addon> data = snapshot.data!;
                                 String selectedValue = data[0].id.toString();
-                                return DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                      isDense: true,
-                                      value: selectedValue,
-                                      items: variants(data),
-                                      //   DropdownMenuItem(
-                                      //     value: '1',
-                                      //     child: Text(
-                                      //       'Pending',
-                                      //       style: TextStyle(
-                                      //           fontSize: isTablet ? 4.sp : 10.sp),
-                                      //     ),
-                                      //   ),
-                                      //   DropdownMenuItem(
-                                      //     value: '2',
-                                      //     child: Text(
-                                      //       'Cooking',
-                                      //       style: TextStyle(
-                                      //           fontSize: isTablet ? 4.sp : 10.sp),
-                                      //     ),
-                                      //   ),
-                                      //   DropdownMenuItem(
-                                      //     value: '3',
-                                      //     child: Text(
-                                      //       'Ready to be served',
-                                      //       style: TextStyle(
-                                      //           fontSize: isTablet ? 4.sp : 10.sp),
-                                      //     ),
-                                      //   ),
-                                      // ],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedValue = value!;
-                                        });
-                                      }),
+                                return DropdownWidget(
+                                  selectedValue: selectedValue,
+                                  data: data,
                                 );
                               } else {
                                 return const Center(
@@ -390,4 +358,30 @@ List<DropdownMenuItem<String>>? variants(List<Addon> variantItems) {
     ));
   }
   return variants;
+}
+
+class DropdownWidget extends StatefulWidget {
+  late String selectedValue;
+  final List<Addon> data;
+  DropdownWidget({super.key, required this.selectedValue, required this.data});
+
+  @override
+  State<DropdownWidget> createState() => _DropdownWidgetState();
+}
+
+class _DropdownWidgetState extends State<DropdownWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton(
+          isDense: true,
+          value: widget.selectedValue,
+          items: variants(widget.data),
+          onChanged: (value) {
+            setState(() {
+              widget.selectedValue = value!;
+            });
+          }),
+    );
+  }
 }
