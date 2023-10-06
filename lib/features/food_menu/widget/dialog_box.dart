@@ -346,20 +346,6 @@ Future dialogBox(BuildContext context, int id, bool isSearching) {
   );
 }
 
-List<DropdownMenuItem<String>>? variants(List<Addon> variantItems) {
-  List<DropdownMenuItem<String>> variants = [];
-  for (Addon items in variantItems) {
-    variants.add(DropdownMenuItem(
-      value: items.id.toString(),
-      child: Text(
-        '${items.title}:  Rs. ${items.currentPrice}',
-        style: TextStyle(fontSize: isTablet ? 4.sp : 10.sp),
-      ),
-    ));
-  }
-  return variants;
-}
-
 class DropdownWidget extends StatefulWidget {
   late String selectedValue;
   final List<Addon> data;
@@ -384,4 +370,18 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           }),
     );
   }
+}
+
+List<DropdownMenuItem<String>>? variants(List<Addon> variantItems) {
+  List<DropdownMenuItem<String>> variants = [];
+  for (Addon items in variantItems) {
+    variants.add(DropdownMenuItem(
+      value: items.id.toString(),
+      child: Text(
+        '${items.title}:  Rs. ${items.currentPrice}',
+        style: TextStyle(fontSize: isTablet ? 4.sp : 10.sp),
+      ),
+    ));
+  }
+  return variants;
 }
