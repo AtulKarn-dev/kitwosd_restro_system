@@ -27,27 +27,56 @@ class MenuItemsResponse {
       };
 }
 
-class Data {
-  List<Burger> momo;
-  List<Burger> burger;
-  Data({
-    required this.momo,
-    required this.burger,
-  });
+class FoodCategoryItem {
+  String category;
+  List<FoodItem> items;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        momo: List<Burger>.from(json["MOMO"].map((x) => Burger.fromJson(x))),
-        burger:
-            List<Burger>.from(json["Burger"].map((x) => Burger.fromJson(x))),
-      );
+  FoodCategoryItem({required this.category, required this.items});
 
-  Map<String, dynamic> toJson() => {
-        "MOMO": List<dynamic>.from(momo.map((x) => x.toJson())),
-        "Burger": List<dynamic>.from(burger.map((x) => x.toJson())),
-      };
+  factory FoodCategoryItem.fromJson(Map<String, dynamic> json) {
+    String category = json["categories"]["name"];
+    List<FoodItem> items =
+        List<FoodItem>.from(json[category].map((x) => FoodItem.fromJson(x)));
+    return FoodCategoryItem(category: category, items: items);
+  }
 }
 
-class Burger {
+class Data {
+  List<FoodCategoryItem> categoryItems;
+
+  Data({
+    required this.categoryItems,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) {
+    List<FoodCategoryItem> categories = [];
+    for (MapEntry<String, dynamic> jsonValue in json.entries) {
+      List<FoodItem> items = [];
+      for (Map<String, dynamic> value in jsonValue.value) {
+        FoodItem item = FoodItem.fromJson(value);
+        items.add(item);
+      }
+  
+      FoodCategoryItem itemValue =
+          FoodCategoryItem(category: jsonValue.key, items: items);
+      categories.add(itemValue);
+    }
+    return Data(categoryItems: categories);
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    for (FoodCategoryItem item in categoryItems) {
+      Map<String, dynamic> itemJson = <String, dynamic>{
+        item.category: item.items.map((e) => e.toJson())
+      };
+      json.addEntries(itemJson.entries);
+    }
+    return json;
+  }
+}
+
+class FoodItem {
   int id;
   String title;
   String image;
@@ -63,7 +92,7 @@ class Burger {
   List<Addon> addons;
   Categories categories;
 
-  Burger({
+  FoodItem({
     required this.id,
     required this.title,
     required this.image,
@@ -80,7 +109,7 @@ class Burger {
     required this.categories,
   });
 
-  factory Burger.fromJson(Map<String, dynamic> json) => Burger(
+  factory FoodItem.fromJson(Map<String, dynamic> json) => FoodItem(
         id: json["id"],
         title: json["title"],
         image: 'http://demo1.kitwosd.com/images/photos/${json["image"]}',

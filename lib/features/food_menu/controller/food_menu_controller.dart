@@ -17,8 +17,8 @@ class FoodMenuController {
         MenuItemsResponse menuItemsResponse =
             menuItemsResponseFromJson(response.data!);
         List<String>? categories = [];
-        for (Burger item in menuItemsResponse.data.burger) {
-          categories.add(item.categories.name);
+        for (FoodCategoryItem item in menuItemsResponse.data.categoryItems) {
+          categories.add(item.category);
         }
         return categories;
       } else {
@@ -37,7 +37,7 @@ class FoodMenuController {
     }
   }
 
-  Future<List<Burger>?> getMenuList() async {
+  Future<List<FoodItem>> getMenuList(String category) async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
@@ -46,13 +46,11 @@ class FoodMenuController {
       if (response.statusCode == 200) {
         MenuItemsResponse menuItemsResponse =
             menuItemsResponseFromJson(response.data!);
-        List<Burger> showingList = [];
-        for (Burger item in menuItemsResponse.data.burger) {
-          showingList.add(item);
-        }
-        return showingList;
+        return menuItemsResponse.data.categoryItems
+            .firstWhere((item) => item.category == category)
+            .items;
       } else {
-        return null;
+        return [];
       }
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
@@ -67,33 +65,8 @@ class FoodMenuController {
     }
   }
 
-  Future<List<Addon>?> getVariants() async {
-    Response<String>? response;
-    try {
-      Dio dio = await getDioWithToken();
-
-      response = await dio.get("menu-items");
-      if (response.statusCode == 200) {
-        MenuItemsResponse menuItemsResponse =
-            menuItemsResponseFromJson(response.data!);
-        List<Addon> variantList = [];
-        for (Addon item in menuItemsResponse.data.momo[0].variants) {
-          variantList.add(item);
-        }
-        return variantList;
-      } else {
-        return null;
-      }
-    } on DioException catch (e) {
-      if (e.response!.statusCode == 401) {
-        Map? r = json.decode(e.response!.data!);
-        throw ValidationException(r, r![r.keys.first.toString()]);
-      } else if (e.response!.statusCode.toString() == "401") {
-        Map? r = json.decode(e.response!.data!);
-        throw ValidationException(r!['message'], r['success']);
-      } else {
-        throw ServerException().gotException(e.message!);
-      }
-    }
+  Future<List<Addon>?> getVariants(String category, int id) async {
+    List<FoodItem> items = await getMenuList(category);
+    return items.firstWhere((element) => element.id == id).addons;
   }
 }

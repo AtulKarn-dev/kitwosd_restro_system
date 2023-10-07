@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class FoodOrdersTab extends StatefulWidget {
   final int id;
-  const FoodOrdersTab({super.key, this.tables,required this.id});
+  const FoodOrdersTab({super.key, this.tables, required this.id});
 
   final String? tables;
 
@@ -104,7 +104,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                       builder: (context, provider, child) => ListView.separated(
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            Burger item = provider.mainFoodList[index];
+                            FoodItem item = provider.mainFoodList[index];
                             return OrderListTile(
                               id: index,
                               sn: index + 1,

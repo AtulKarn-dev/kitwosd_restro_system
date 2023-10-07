@@ -15,14 +15,22 @@ class MenuTabBarWidget extends StatefulWidget {
 
 class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
     with TickerProviderStateMixin {
-  //  List<String> categories = ['Beef & Lamb', 'Seafood', 'Appetizers', 'Dim Sum'];
   late TabController tabController;
+  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     tabController =
         TabController(length: widget.categories.length, vsync: this);
+    currentIndex = tabController.index;
+    tabController.addListener(() {
+      // Reset previous food list
+      FoodOrderProvider.loadFoodList([]);
+      setState(() {
+        currentIndex = tabController.index;
+      });
+    });
   }
 
   @override
@@ -33,8 +41,6 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
 
   @override
   Widget build(BuildContext context) {
-    // FoodOrderProvider provider = context.read<FoodOrderProvider>();
-
     List<String> categories = widget.categories;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,18 +67,25 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
           child: Row(
             children: [
               Expanded(
-                child: FutureBuilder<List<Burger>?>(
-                  future: FoodMenuController().getMenuList(),
+                child: FutureBuilder<List<FoodItem>>(
+                  future: FoodMenuController()
+                      .getMenuList(widget.categories[currentIndex]),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<Burger> data = snapshot.data!;
-                      FoodOrderProvider.loadFoodList(data);
-                      return TabBarView(
-                          controller: tabController,
-                          children: List.generate(categories.length,
-                              (index) => FoodMenu(mainFoodList: data)));
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return const Center(child: CircularProgressIndicator());
+                      default:
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          List<FoodItem> data = snapshot.data!;
+                          FoodOrderProvider.loadFoodList(data);
+                          return TabBarView(
+                              controller: tabController,
+                              children: List.generate(categories.length,
+                                  (index) => FoodMenu(mainFoodList: data)));
+                        }
                     }
                   },
                 ),

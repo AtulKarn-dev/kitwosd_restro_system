@@ -10,7 +10,7 @@ String selectedDietary = 'any';
 String? price;
 
 StatefulBuilder searchWidget(
-    BuildContext context, FoodMenu menu, List<Burger> item) {
+    BuildContext context, FoodMenu menu, List<FoodItem> item) {
   final List<String> entries = ['\$', '\$\$', '\$\$\$', '\$\$\$\$'];
   // List<FoodItem> chinese = [
   //   FoodItem(

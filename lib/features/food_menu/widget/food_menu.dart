@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
@@ -6,7 +5,7 @@ import '../../../widget/helper/function.dart';
 import 'dialog_box.dart';
 
 class FoodMenu extends StatefulWidget {
-  List<Burger> mainFoodList = [];
+  List<FoodItem> mainFoodList = [];
   bool isSearching;
 
   FoodMenu({super.key, required this.mainFoodList, this.isSearching = false});
@@ -34,7 +33,7 @@ class FoodMenuState extends State<FoodMenu> {
                   ),
               itemCount: widget.mainFoodList.length,
               itemBuilder: (context, index) {
-                Burger foodItem = widget.mainFoodList[index];
+                FoodItem foodItem = widget.mainFoodList[index];
                 int id = index;
                 return ListTile(
                   dense: true,
