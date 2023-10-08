@@ -67,6 +67,10 @@ class FoodMenuController {
 
   Future<List<Addon>?> getVariants(String category, int id) async {
     List<FoodItem> items = await getMenuList(category);
+    return items.firstWhere((element) => element.id == id).variants;
+  }
+   Future<List<Addon>?> getAddons(String category, int id) async {
+    List<FoodItem> items = await getMenuList(category);
     return items.firstWhere((element) => element.id == id).addons;
   }
 }

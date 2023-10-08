@@ -17,6 +17,8 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton(
+          iconSize: 30,
+          iconEnabledColor: const Color(0xffeea734),
           isDense: true,
           value: widget.selectedValue,
           items: variants(widget.data),
@@ -35,7 +37,7 @@ List<DropdownMenuItem<int>>? variants(List<Addon> variantItems) {
     variants.add(DropdownMenuItem(
       value: items.id,
       child: Text(
-        '${items.title}:  Rs. ${items.currentPrice}',
+        '${items.title}: \nRs. ${items.currentPrice}',
         style: TextStyle(fontSize: isTablet ? 4.sp : 10.sp),
       ),
     ));

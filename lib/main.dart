@@ -24,14 +24,18 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context)=> FoodOrderProvider())
+          ChangeNotifierProvider(create: (context) => FoodOrderProvider())
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            textTheme: GoogleFonts.yaldeviTextTheme(Theme.of(context).textTheme),
-            colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffeea734)),
+            progressIndicatorTheme:
+                const ProgressIndicatorThemeData(color: Color(0xffeea734)),
+            textTheme:
+                GoogleFonts.yaldeviTextTheme(Theme.of(context).textTheme),
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: const Color(0xffeea734)),
             useMaterial3: true,
           ),
           //  home: const LoginPage()),

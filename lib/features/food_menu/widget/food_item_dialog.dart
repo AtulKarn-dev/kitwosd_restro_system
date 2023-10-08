@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/features/food_menu/widget/addon_widget.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/drop_down_widget.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
@@ -23,13 +24,15 @@ class FoodItemDialogWidget extends StatefulWidget {
 
 class _FoodItemDialogState extends State<FoodItemDialogWidget> {
   int itemCount = 1;
-  bool isSelected1 = false;
-  bool isSelected2 = false;
-  bool isSelected3 = false;
 
   Future<List<Addon>?> getVariants() {
     FoodItem item = widget.provider.getItem(widget.foodId, widget.isSearching);
     return FoodMenuController().getVariants(item.categories.name, item.id);
+  }
+
+  Future<List<Addon>?> getAddons() {
+    FoodItem item = widget.provider.getItem(widget.foodId, widget.isSearching);
+    return FoodMenuController().getAddons(item.categories.name, item.id);
   }
 
   @override
@@ -50,31 +53,38 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                       fontSize: isTablet ? 5.sp : 10.sp),
                 ),
                 SizedBox(
-                  height: 4.w,
+                  height: 3.w,
                 ),
-                Container(
-                  height: 25.h,
-                  padding: EdgeInsets.only(left: 3.w),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: FutureBuilder<List<Addon>?>(
-                    future: getVariants(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<Addon> data = snapshot.data!;
-                        int selectedValue = data[0].id;
-                        return DropdownWidget(
-                          selectedValue: selectedValue,
-                          data: data,
+                FutureBuilder<List<Addon>?>(
+                  future: getVariants(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Addon> data = snapshot.data!;
+                      int selectedValue = data[0].id;
+                      if (data.isEmpty) {
+                        return SizedBox(
+                          width: 2.w,
+                          height: 25.h,
+                          // child: const Text('No Variants Found!')
                         );
                       } else {
-                        return const Center(child: CircularProgressIndicator());
+                        return Container(
+                            height: 30.h,
+                            padding: EdgeInsets.only(left: 3.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: DropdownWidget(
+                              selectedValue: selectedValue,
+                              data: data,
+                            ));
                       }
-                    },
-                  ),
-                )
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
               ]),
               Column(
                 children: [
@@ -141,137 +151,25 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                 fontSize: isTablet ? 5.sp : 12.sp,
                 color: const Color(0xff69716d)),
           ),
-          isTablet
-              ? CheckboxListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
-                  activeColor: const Color(0xffeea734),
-                  side: const BorderSide(color: Color(0xffeea734)),
-                  value: isSelected1,
-                  onChanged: (newValue) {
-                    setState(() {
-                      isSelected1 = newValue!;
-                    });
-                  },
-                  title: Text.rich(TextSpan(
-                      text: 'Add an extra cheese',
-                      style: TextStyle(fontSize: 5.sp),
-                      children: [
-                        WidgetSpan(
-                            child: SizedBox(
-                          width: 40.w,
-                        )),
-                        const TextSpan(
-                            text: '(+Rs.120)',
-                            style: TextStyle(color: Color(0xffeea734)))
-                      ])),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Add an extra cheese',
-                      style: TextStyle(fontSize: 12.sp),
-                    ),
-                    const Text(
-                      '(+Rs.120)',
-                      style: TextStyle(color: Color(0xffeea734)),
-                    ),
-                    Checkbox(
-                      side: const BorderSide(color: Color(0xffeea734)),
-                      activeColor: const Color(0xffeea734),
-                      value: isSelected1,
-                      onChanged: (newValue) {
-                        setState(() {
-                          isSelected1 = newValue!;
-                        });
-                      },
-                    )
-                  ],
-                ),
-          isTablet
-              ? CheckboxListTile(
-                  side: const BorderSide(color: Color(0xffeea734)),
-                  activeColor: const Color(0xffeea734),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
-                  value: isSelected2,
-                  onChanged: (newValue) {
-                    setState(() {
-                      isSelected2 = newValue!;
-                    });
-                  },
-                  title: Text(
-                    'Extra Spicy',
-                    style: TextStyle(fontSize: 5.sp),
-                  ),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Extra Spicy',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                      ),
-                    ),
-                    Checkbox(
-                      side: const BorderSide(color: Color(0xffeea734)),
-                      activeColor: const Color(0xffeea734),
-                      value: isSelected2,
-                      onChanged: (newValue) {
-                        setState(() {
-                          isSelected2 = newValue!;
-                        });
-                      },
-                    )
-                  ],
-                ),
-          isTablet
-              ? CheckboxListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
-                  activeColor: const Color(0xffeea734),
-                  side: const BorderSide(color: Color(0xffeea734)),
-                  value: isSelected3,
-                  onChanged: (newValue) {
-                    setState(() {
-                      isSelected3 = newValue!;
-                    });
-                  },
-                  title: Text.rich(TextSpan(
-                      text: 'Potato Chips On Side',
-                      style: TextStyle(fontSize: 5.sp),
-                      children: [
-                        WidgetSpan(
-                            child: SizedBox(
-                          width: 36.w,
-                        )),
-                        const TextSpan(
-                            text: '(+Rs.120)',
-                            style: TextStyle(color: Color(0xffeea734)))
-                      ])),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Potato Chips On Side',
-                      style: TextStyle(fontSize: 12.sp),
-                    ),
-                    const Text(
-                      '(+Rs.120)',
-                      style: TextStyle(color: Color(0xffeea734)),
-                    ),
-                    Checkbox(
-                      side: const BorderSide(color: Color(0xffeea734)),
-                      activeColor: const Color(0xffeea734),
-                      value: isSelected3,
-                      onChanged: (newValue) {
-                        setState(() {
-                          isSelected3 = newValue!;
-                        });
-                      },
-                    )
-                  ],
-                ),
+          FutureBuilder<List<Addon>?>(
+            future: getAddons(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Addon> data = snapshot.data!;
+                bool selectedValue = false;
+                return Column(
+                    children: List.generate(
+                        data.length,
+                        (index) => AddOnsWidget(
+                              title: data[index].title,
+                              price: data[index].currentPrice,
+                              selectedValue: selectedValue,
+                            )));
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
