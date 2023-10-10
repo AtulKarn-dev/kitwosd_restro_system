@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../widget/helper/function.dart';
+import 'package:kitwosd_restro_system/features/food_orders/widget/order_status.dart';
 
 class OrderListTile extends StatefulWidget {
   OrderListTile(
@@ -72,52 +72,7 @@ class _OrderListTileState extends State<OrderListTile> {
             SizedBox(
               height: 5.w,
             ),
-            Container(
-              height: isTablet ? 7.w : 20.w,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: const Color(0xffF8B64C))),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                    value: widget.status,
-                    items: [
-                      DropdownMenuItem(
-                        value: 'pending',
-                        child: Text(
-                          'Pending',
-                          style: TextStyle(fontSize: 4.sp),
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: 'preparing',
-                        child: Text(
-                          'Preparing',
-                          style: TextStyle(fontSize: 4.sp),
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: 'ready',
-                        child: Text(
-                          'Ready to be served',
-                          style: TextStyle(fontSize: 4.sp),
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: 'delivered',
-                        child: Text(
-                          'Delivered',
-                          style: TextStyle(fontSize: 4.sp),
-                        ),
-                      ),
-                    ],
-                    onChanged: (v) {
-                      setState(() {
-                        widget.status = v!;
-                      });
-                    }),
-              ),
-            )
+            OrderStatus(status: widget.status)
           ],
         ),
       ),
