@@ -34,5 +34,5 @@ class FoodOrderProvider extends ChangeNotifier {
       displayList = showingList;
     }
   }
-}
 
+}

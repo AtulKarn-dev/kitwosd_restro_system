@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
+import 'package:kitwosd_restro_system/features/food_menu/widget/order_status_tile.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
+import 'package:provider/provider.dart';
 
 class MenuTabBarWidget extends StatefulWidget {
   final List<String> categories;
@@ -58,13 +60,14 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                   (index) => Tab(
                         child: Text(
                           categories[index],
-                          style: TextStyle(fontSize: 8.sp),
+                          style: TextStyle(fontSize: 7.sp),
                         ),
                       ))),
         ),
         SizedBox(
           height: 520,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: FutureBuilder<List<FoodItem>>(
@@ -90,11 +93,25 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                   },
                 ),
               ),
-              const VerticalDivider(
-                thickness: 4,
-                color: Colors.grey,
-              ),
-              const Expanded(child: Text('data')),
+              Expanded(
+                  child: Consumer<FoodOrderProvider>(
+                builder: (context, provider, child) => ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      FoodItem item = provider.mainFoodList[index];
+                      return OrderStatusTile(
+                        sn: index + 1,
+                        title: item.title,
+                        index: index,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: 4.w,
+                      );
+                    },
+                    itemCount: provider.mainFoodList.length),
+              )),
             ],
           ),
         ),

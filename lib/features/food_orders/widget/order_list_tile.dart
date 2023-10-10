@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../widget/helper/function.dart';
 
 class OrderListTile extends StatefulWidget {
@@ -24,7 +23,7 @@ class OrderListTile extends StatefulWidget {
 }
 
 class _OrderListTileState extends State<OrderListTile> {
-  String selectedStatus = "pending";
+  bool selectStatus = false;
   @override
   Widget build(BuildContext context) {
     return Container(

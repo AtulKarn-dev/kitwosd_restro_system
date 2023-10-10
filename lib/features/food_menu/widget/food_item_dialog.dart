@@ -60,14 +60,10 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Addon> data = snapshot.data!;
-                      int selectedValue = data[0].id;
                       if (data.isEmpty) {
-                        return SizedBox(
-                          width: 2.w,
-                          height: 25.h,
-                          // child: const Text('No Variants Found!')
-                        );
+                        return const Text('No Variants Found!');
                       } else {
+                        int selectedValue = data[0].id;
                         return Container(
                             height: 30.h,
                             padding: EdgeInsets.only(left: 3.w),
@@ -233,3 +229,4 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
     );
   }
 }
+
