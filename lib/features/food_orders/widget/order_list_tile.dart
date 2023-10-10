@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_status.dart';
 
 class OrderListTile extends StatefulWidget {
@@ -7,7 +8,7 @@ class OrderListTile extends StatefulWidget {
       {super.key,
       required this.id,
       required this.sn,
-      this.status = "pending",
+      this.status = FoodItemState.pending,
       required this.subtitle,
       required this.title,
       required this.price});
@@ -16,7 +17,7 @@ class OrderListTile extends StatefulWidget {
   final String title;
   final String subtitle;
   final String? price;
-  String status;
+  FoodItemState status;
 
   @override
   State<OrderListTile> createState() => _OrderListTileState();

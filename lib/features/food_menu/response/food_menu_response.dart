@@ -56,7 +56,7 @@ class Data {
         FoodItem item = FoodItem.fromJson(value);
         items.add(item);
       }
-  
+
       FoodCategoryItem itemValue =
           FoodCategoryItem(category: jsonValue.key, items: items);
       categories.add(itemValue);
@@ -73,6 +73,26 @@ class Data {
       json.addEntries(itemJson.entries);
     }
     return json;
+  }
+}
+
+enum FoodItemState {
+  pending,
+  preparing,
+  ready,
+  delivered;
+
+  String get displayTitle {
+    switch (this) {
+      case FoodItemState.pending:
+        return 'Pending';
+      case FoodItemState.preparing:
+        return 'Preparing';
+      case FoodItemState.ready:
+        return 'Ready to be served';
+      case FoodItemState.delivered:
+        return 'Delivered';
+    }
   }
 }
 

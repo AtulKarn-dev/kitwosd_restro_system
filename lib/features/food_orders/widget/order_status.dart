@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class OrderStatus extends StatefulWidget {
-  String status;
+  FoodItemState status;
   OrderStatus({super.key, required this.status});
 
   @override
@@ -22,36 +23,15 @@ class _OrderStatusState extends State<OrderStatus> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
             value: widget.status,
-            items: [
-              DropdownMenuItem(
-                value: 'pending',
-                child: Text(
-                  'Pending',
-                  style: TextStyle(fontSize: 4.sp),
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'preparing',
-                child: Text(
-                  'Preparing',
-                  style: TextStyle(fontSize: 4.sp),
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'ready',
-                child: Text(
-                  'Ready to be served',
-                  style: TextStyle(fontSize: 4.sp),
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'delivered',
-                child: Text(
-                  'Delivered',
-                  style: TextStyle(fontSize: 4.sp),
-                ),
-              ),
-            ],
+            items: FoodItemState.values
+                .map((value) => DropdownMenuItem(
+                      value: value,
+                      child: Text(
+                        value.displayTitle,
+                        style: TextStyle(fontSize: 4.sp),
+                      ),
+                    ))
+                .toList(),
             onChanged: (v) {
               setState(() {
                 widget.status = v!;
