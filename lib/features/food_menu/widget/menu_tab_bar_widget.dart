@@ -102,6 +102,7 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                       return OrderStatusTile(
                         sn: index + 1,
                         title: item.title,
+                        state: item.state,
                         index: index,
                       );
                     },

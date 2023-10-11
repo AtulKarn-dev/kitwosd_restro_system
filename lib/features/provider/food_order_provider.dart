@@ -23,6 +23,12 @@ class FoodOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateFoodItemState(int index, FoodItemState state) {
+    FoodItem item = mainFoodList[index];
+    item.state = state;
+    notifyListeners();
+  }
+
   void filterItems(String? searchText) {
     if (searchText != null) {
       displayList = showingList
@@ -33,5 +39,4 @@ class FoodOrderProvider extends ChangeNotifier {
       displayList = showingList;
     }
   }
-
 }

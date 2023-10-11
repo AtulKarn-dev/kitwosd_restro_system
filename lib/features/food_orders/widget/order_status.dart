@@ -5,7 +5,8 @@ import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class OrderStatus extends StatefulWidget {
   FoodItemState status;
-  OrderStatus({super.key, required this.status});
+  ValueChanged<FoodItemState>? onStatusChange;
+  OrderStatus({super.key, required this.status, this.onStatusChange});
 
   @override
   State<OrderStatus> createState() => _OrderStatusState();
@@ -33,8 +34,10 @@ class _OrderStatusState extends State<OrderStatus> {
                     ))
                 .toList(),
             onChanged: (v) {
+              FoodItemState state = v!;
+              widget.onStatusChange?.call(state);
               setState(() {
-                widget.status = v!;
+                widget.status = state;
               });
             }),
       ),

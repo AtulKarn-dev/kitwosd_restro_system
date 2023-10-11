@@ -8,16 +8,21 @@ class OrderListTile extends StatefulWidget {
       {super.key,
       required this.id,
       required this.sn,
-      this.status = FoodItemState.pending,
+      required this.status,
       required this.subtitle,
       required this.title,
-      required this.price});
+      required this.price,
+      this.onStatusChange
+      });
+
   final int id;
   final int sn;
   final String title;
   final String subtitle;
   final String? price;
   FoodItemState status;
+
+  ValueChanged<FoodItemState>? onStatusChange;
 
   @override
   State<OrderListTile> createState() => _OrderListTileState();
@@ -73,7 +78,10 @@ class _OrderListTileState extends State<OrderListTile> {
             SizedBox(
               height: 5.w,
             ),
-            OrderStatus(status: widget.status)
+            OrderStatus(
+              status: widget.status, 
+              onStatusChange: (value) => widget.onStatusChange?.call(value),
+            )
           ],
         ),
       ),

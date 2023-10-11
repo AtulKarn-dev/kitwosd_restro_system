@@ -108,9 +108,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             return OrderListTile(
                               id: index,
                               sn: index + 1,
+                              status: item.state,
                               subtitle: item.description,
                               title: item.title,
                               price: item.currentPrice,
+                              onStatusChange: (value) =>
+                                  provider.updateFoodItemState(index, value),
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -261,4 +264,3 @@ class _FloatingButtonTabState extends State<FloatingButtonTab> {
         ));
   }
 }
-

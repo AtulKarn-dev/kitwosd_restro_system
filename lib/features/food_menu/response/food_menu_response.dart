@@ -111,6 +111,7 @@ class FoodItem {
   List<Addon> variants;
   List<Addon> addons;
   Categories categories;
+  FoodItemState state = FoodItemState.pending;
 
   FoodItem({
     required this.id,
