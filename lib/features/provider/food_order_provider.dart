@@ -46,6 +46,6 @@ class FoodOrderProvider extends ChangeNotifier {
   }
 
   void getVariant() {
-    // notifyListeners();
+    //  notifyListeners();
   }
 }

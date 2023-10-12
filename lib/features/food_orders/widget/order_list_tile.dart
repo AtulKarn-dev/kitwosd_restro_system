@@ -69,7 +69,7 @@ class _OrderListTileState extends State<OrderListTile> {
             children: [
               WidgetSpan(
                   child: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 6),
                 child: Consumer<FoodOrderProvider>(
                   builder: (context, value, child) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
