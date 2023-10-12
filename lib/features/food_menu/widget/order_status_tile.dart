@@ -7,13 +7,15 @@ class OrderStatusTile extends StatefulWidget {
   final String title;
   final int index;
   final FoodItemState state;
+  final Function? removeOrder;
 
   const OrderStatusTile(
       {super.key,
       required this.sn,
       required this.title,
       required this.state,
-      required this.index});
+      required this.index,
+      this.removeOrder});
 
   @override
   State<OrderStatusTile> createState() => _OrderStatusTileState();
@@ -68,8 +70,9 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
             ),
             IconButton(
                 onPressed: () {
-                  setState(() {
-                  });
+                  if (widget.removeOrder != null) {
+                      widget.removeOrder!(widget.index);
+                  }
                 },
                 icon: const Icon(
                   Icons.delete,

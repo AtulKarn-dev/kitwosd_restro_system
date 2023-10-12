@@ -29,6 +29,11 @@ class FoodOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteAddedOrderItem(int index) {
+    mainFoodList.removeAt(index);
+    notifyListeners();
+  }
+
   void filterItems(String? searchText) {
     if (searchText != null) {
       displayList = showingList

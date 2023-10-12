@@ -12,8 +12,7 @@ class OrderListTile extends StatefulWidget {
       required this.subtitle,
       required this.title,
       required this.price,
-      this.onStatusChange
-      });
+      this.onStatusChange});
 
   final int id;
   final int sn;
@@ -33,7 +32,7 @@ class _OrderListTileState extends State<OrderListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.w),
+      padding: EdgeInsets.symmetric(vertical: 6.w),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(color: const Color(0xFFe3e3e3))),
@@ -41,7 +40,7 @@ class _OrderListTileState extends State<OrderListTile> {
         dense: true,
         visualDensity: const VisualDensity(vertical: 4), //
         leading: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(color: const Color(0xff868686))),
@@ -59,17 +58,35 @@ class _OrderListTileState extends State<OrderListTile> {
             color: Colors.black.withOpacity(0.7),
           ),
         ),
-        subtitle: Text(
-          widget.subtitle,
-          style: TextStyle(
-              color: const Color(0xff868686),
-              fontWeight: FontWeight.w400,
-              fontSize: 5.sp),
-        ),
+        subtitle: Text.rich(TextSpan(
+            text: '${widget.subtitle}\n',
+            style: TextStyle(
+                color: const Color(0xff868686),
+                fontWeight: FontWeight.w400,
+                fontSize: 5.sp),
+            children: [
+              WidgetSpan(
+                  child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Variant:',
+                      style: TextStyle(
+                          fontSize: 4.sp, fontWeight: FontWeight.bold),
+                    ),
+                    Text('Add Ons:',
+                        style: TextStyle(
+                            fontSize: 4.sp, fontWeight: FontWeight.bold))
+                  ],
+                ),
+              ))
+            ])),
         trailing: Column(
           children: [
             Text(
-              widget.price!,
+              'Rs.${widget.price!}',
               style: TextStyle(
                   color: const Color(0xffF8B64C),
                   fontWeight: FontWeight.w600,
@@ -79,7 +96,7 @@ class _OrderListTileState extends State<OrderListTile> {
               height: 5.w,
             ),
             OrderStatus(
-              status: widget.status, 
+              status: widget.status,
               onStatusChange: (value) => widget.onStatusChange?.call(value),
             )
           ],

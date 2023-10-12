@@ -229,4 +229,3 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
     );
   }
 }
-
