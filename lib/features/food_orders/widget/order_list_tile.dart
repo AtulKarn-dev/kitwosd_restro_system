@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_status.dart';
+import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
+import 'package:provider/provider.dart';
 
 class OrderListTile extends StatefulWidget {
   OrderListTile(
@@ -68,18 +70,20 @@ class _OrderListTileState extends State<OrderListTile> {
               WidgetSpan(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Variant:',
-                      style: TextStyle(
-                          fontSize: 4.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Text('Add Ons:',
+                child: Consumer<FoodOrderProvider>(
+                  builder: (context, value, child) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Variant:',
                         style: TextStyle(
-                            fontSize: 4.sp, fontWeight: FontWeight.bold))
-                  ],
+                            fontSize: 4.sp, fontWeight: FontWeight.bold),
+                      ),
+                      Text('Add Ons:',
+                          style: TextStyle(
+                              fontSize: 4.sp, fontWeight: FontWeight.bold))
+                    ],
+                  ),
                 ),
               ))
             ])),

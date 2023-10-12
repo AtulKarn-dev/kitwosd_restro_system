@@ -24,34 +24,39 @@ class OrderStatusTile extends StatefulWidget {
 class _OrderStatusTileState extends State<OrderStatusTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: 6.w),
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: Border.all(color: const Color(0xFFe3e3e3))),
-        child: ListTile(
-            dense: true,
-            visualDensity: const VisualDensity(vertical: 4), //
-            leading: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: const Color(0xff868686))),
-                child: Text(
-                  widget.sn.toString(),
-                  style: TextStyle(
-                      fontSize: 4.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xffF8B64C)),
-                )),
-            title: Text(
-              widget.title,
-              style: TextStyle(
-                fontSize: 6.sp,
-                color: Colors.black.withOpacity(0.7),
+    return Card(
+      shadowColor: const Color(0xffF8B64C),
+      elevation: 2,
+      child: Container(
+          padding: EdgeInsets.symmetric(vertical: 6.w),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            // border: Border.all(color: const Color(0xFFe3e3e3))
+          ),
+          child: ListTile(
+              dense: true,
+              visualDensity: const VisualDensity(vertical: 4), //
+              leading: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(color: const Color(0xff868686))),
+                  child: Text(
+                    widget.sn.toString(),
+                    style: TextStyle(
+                        fontSize: 4.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xffF8B64C)),
+                  )),
+              title: Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 6.sp,
+                  color: Colors.black.withOpacity(0.7),
+                ),
               ),
-            ),
-            trailing: statusWidget()));
+              trailing: statusWidget())),
+    );
   }
 
   Widget? statusWidget() {
@@ -71,7 +76,7 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
             IconButton(
                 onPressed: () {
                   if (widget.removeOrder != null) {
-                      widget.removeOrder!(widget.index);
+                    widget.removeOrder!(widget.index);
                   }
                 },
                 icon: const Icon(

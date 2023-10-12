@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
+import 'package:provider/provider.dart';
 
 class DropdownWidget extends StatefulWidget {
   int selectedValue;
@@ -25,6 +27,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           onChanged: (value) {
             setState(() {
               widget.selectedValue = value!;
+              context.read<FoodOrderProvider>().getVariant();
             });
           }),
     );
@@ -44,4 +47,3 @@ List<DropdownMenuItem<int>>? variants(List<Addon> variantItems) {
   }
   return variants;
 }
-
