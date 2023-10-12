@@ -141,12 +141,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'Subtotal',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.200.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -156,12 +156,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'Add on',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -171,12 +171,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'Taxable Amount',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -186,12 +186,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'VAT',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -201,12 +201,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'Service Tax',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -217,12 +217,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                             Text(
                               'Grand Total',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             ),
                             Text(
                               'Rs.200.00',
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.w300),
+                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
