@@ -182,7 +182,7 @@ class _FoodListMobileState extends State<FoodListMobile>
                             children: List.generate(
                                 4,
                                 (index) => FoodMenu(
-                                      mainFoodList: [],
+                                      mainFoodList: const [],
                                     )),
                           ))
                     ],
@@ -193,4 +193,5 @@ class _FoodListMobileState extends State<FoodListMobile>
     );
   }
 }
+
 

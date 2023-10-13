@@ -9,3 +9,4 @@ class ItemCountProvider extends ChangeNotifier {
 
   int get itemCount => itemCountVal!;
 }
+

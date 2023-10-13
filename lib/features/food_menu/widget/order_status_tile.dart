@@ -53,7 +53,12 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
                 ),
               ),
               subtitle: Text(
-                  'Quantity: ${context.watch<ItemCountProvider>().itemCount}'),
+                'Quantity: ${context.watch<ItemCountProvider>().itemCount}',
+                style: TextStyle(
+                    fontSize: 4.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff868686)),
+              ),
               trailing: statusWidget())),
     );
   }

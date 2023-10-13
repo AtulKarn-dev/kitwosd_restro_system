@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
-import 'package:kitwosd_restro_system/features/food_menu/widget/order_status_tile.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/order_items_widget.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
-import 'package:provider/provider.dart';
 
 class MenuTabBarWidget extends StatefulWidget {
   final List<String> categories;
