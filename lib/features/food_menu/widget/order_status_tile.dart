@@ -38,18 +38,13 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
           child: ListTile(
               dense: true,
               visualDensity: const VisualDensity(vertical: 4), //
-              leading: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: const Color(0xff868686))),
-                  child: Text(
-                    widget.sn.toString(),
-                    style: TextStyle(
-                        fontSize: 4.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xffF8B64C)),
-                  )),
+              leading: Text(
+                '${widget.sn.toString()}.',
+                style: TextStyle(
+                    fontSize: 6.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black.withOpacity(0.6)),
+              ),
               title: Text(
                 widget.title,
                 style: TextStyle(
