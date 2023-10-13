@@ -5,7 +5,9 @@ import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_resp
 import 'package:kitwosd_restro_system/features/food_menu/widget/addon_widget.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/drop_down_widget.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
+import 'package:kitwosd_restro_system/features/provider/item_count_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
+import 'package:provider/provider.dart';
 
 class FoodItemDialogWidget extends StatefulWidget {
   const FoodItemDialogWidget(
@@ -210,6 +212,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                   onPressed: () {
                     widget.provider.addItem(widget.foodId, widget.isSearching);
                     Navigator.pop(context);
+                    context.read<ItemCountProvider>().count(itemCount);
                   },
                   style: ButtonStyle(
                       backgroundColor:

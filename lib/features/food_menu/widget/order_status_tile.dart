@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/features/provider/item_count_provider.dart';
+import 'package:provider/provider.dart';
 
 class OrderStatusTile extends StatefulWidget {
   final int sn;
@@ -55,6 +57,8 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
                   color: Colors.black.withOpacity(0.7),
                 ),
               ),
+              subtitle: Text(
+                  'Quantity: ${context.watch<ItemCountProvider>().itemCount}'),
               trailing: statusWidget())),
     );
   }

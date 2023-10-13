@@ -24,10 +24,11 @@ Future dialogBox(BuildContext context, int id, bool isSearching) {
               ))
         ],
       ),
-      content: FoodItemDialogWidget(foodId: id, isSearching: isSearching, provider: context.read(),),
-
+      content: FoodItemDialogWidget(
+        foodId: id,
+        isSearching: isSearching,
+        provider: context.read(),
+      ),
     ),
   );
 }
-
-

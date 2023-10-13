@@ -5,6 +5,7 @@ class FoodOrderProvider extends ChangeNotifier {
   List<FoodItem> mainFoodList = [];
   static List<FoodItem> showingList = [];
   List<FoodItem> displayList = showingList;
+  
 
   static void loadFoodList(List<FoodItem> list) {
     showingList = list;

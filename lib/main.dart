@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 //  import 'package:kitwosd_restro_system/features/login_screen/presentation/login_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
+import 'package:kitwosd_restro_system/features/provider/item_count_provider.dart';
 // import 'package:kitwosd_restro_system/features/food_orders.dart';
 // import 'package:kitwosd_restro_system/features/food_list.dart';
 //  import 'package:kitwosd_restro_system/features/search_page_tab.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => FoodOrderProvider())
+          ChangeNotifierProvider(create: (context) => FoodOrderProvider()),
+          ChangeNotifierProvider(create: (context) => ItemCountProvider())
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
