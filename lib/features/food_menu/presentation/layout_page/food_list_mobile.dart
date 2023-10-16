@@ -156,7 +156,7 @@ class _FoodListMobileState extends State<FoodListMobile>
             ),
             isTapped
                 ? FoodMenu(
-                    mainFoodList: [],
+                    mainFoodList: const [],
                   )
                 : Column(
                     children: [
