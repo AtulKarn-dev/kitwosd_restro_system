@@ -31,7 +31,7 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
 
               Widget? quantity() {
                 return Text(
-                  'Quantity: ${context.watch<ItemCountProvider>().itemCount(item)}',
+                  'Quantity: ${context.watch<ItemCountProvider>().itemCount()}',
                   style: TextStyle(
                       fontSize: 4.sp,
                       fontWeight: FontWeight.bold,

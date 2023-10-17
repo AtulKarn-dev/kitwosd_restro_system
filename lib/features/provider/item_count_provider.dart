@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+
 
 class ItemCountProvider extends ChangeNotifier {
   int? itemCountVal;
@@ -10,7 +10,7 @@ class ItemCountProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int itemCount(FoodItem item) {
+  int itemCount() {
     quantity = itemCountVal!;
     return quantity!;
   }
