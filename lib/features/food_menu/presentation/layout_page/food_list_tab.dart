@@ -69,7 +69,6 @@ class _FoodListTabState extends State<FoodListTab> {
                   isTapped
                       ? SearchBar(
                           controller: text1,
-                          onTap: () {},
                           constraints:
                               BoxConstraints(minHeight: 45.h, maxWidth: 255.w),
                           shape: MaterialStateProperty.all(
