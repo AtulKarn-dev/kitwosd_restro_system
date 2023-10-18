@@ -76,25 +76,25 @@ class Data {
   }
 }
 
-enum FoodItemState {
-  pending,
-  preparing,
-  ready,
-  delivered;
+// enum FoodItemState {
+//   pending,
+//   preparing,
+//   ready,
+//   delivered;
 
-  String get displayTitle {
-    switch (this) {
-      case FoodItemState.pending:
-        return 'Pending';
-      case FoodItemState.preparing:
-        return 'Preparing';
-      case FoodItemState.ready:
-        return 'Ready to be served';
-      case FoodItemState.delivered:
-        return 'Delivered';
-    }
-  }
-}
+//   String get displayTitle {
+//     switch (this) {
+//       case FoodItemState.pending:
+//         return 'Pending';
+//       case FoodItemState.preparing:
+//         return 'Preparing';
+//       case FoodItemState.ready:
+//         return 'Ready to be served';
+//       case FoodItemState.delivered:
+//         return 'Delivered';
+//     }
+//   }
+// }
 
 class FoodItem {
   int id;
@@ -111,7 +111,7 @@ class FoodItem {
   List<Addon> variants;
   List<Addon> addons;
   Categories categories;
-  FoodItemState state = FoodItemState.pending;
+  // FoodItemState state = FoodItemState.pending;
 
   FoodItem({
     required this.id,

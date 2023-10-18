@@ -6,7 +6,7 @@ class OrderStatusTile extends StatefulWidget {
   final int sn;
   final String title;
   final int index;
-  final FoodItemState state;
+  // final FoodItemState state;
   final Function? removeOrder;
   final Widget? subtitle;
 
@@ -14,7 +14,7 @@ class OrderStatusTile extends StatefulWidget {
       {super.key,
       required this.sn,
       required this.title,
-      required this.state,
+      // required this.state,
       required this.index,
       required this.subtitle,
       this.removeOrder});
@@ -53,51 +53,52 @@ class _OrderStatusTileState extends State<OrderStatusTile> {
                 ),
               ),
               subtitle: widget.subtitle!,
-              trailing: statusWidget())),
+              trailing: null)),
     );
   }
 
-  Widget? statusWidget() {
-    switch (widget.state) {
-      case FoodItemState.pending:
-        return Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            const Icon(
-              Icons.pending,
-              size: 30,
-              color: Color(0xffF8B64C),
-            ),
-            SizedBox(
-              width: 2.w,
-            ),
-            IconButton(
-                onPressed: () {
-                  if (widget.removeOrder != null) {
-                    widget.removeOrder!();
-                  }
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: 30,
-                ))
-          ],
-        );
-      case FoodItemState.preparing:
-        return const Icon(
-          Icons.sync,
-          size: 30,
-          color: Colors.green,
-        );
-      case FoodItemState.ready:
-        return const Icon(
-          Icons.check_circle_outline,
-          size: 30,
-          color: Colors.green,
-        );
-      default:
-        return const Icon(Icons.check_circle, size: 30, color: Colors.green);
-    }
-  }
+  // Widget? statusWidget() {
+  //   switch (widget.state) {
+  //     case FoodItemState.pending:
+  //       return Wrap(
+  //         crossAxisAlignment: WrapCrossAlignment.center,
+  //         children: [
+  //           const Icon(
+  //             Icons.pending,
+  //             size: 30,
+  //             color: Color(0xffF8B64C),
+  //           ),
+  //           SizedBox(
+  //             width: 2.w,
+  //           ),
+  //           IconButton(
+  //               onPressed: () {
+  //                 if (widget.removeOrder != null) {
+  //                   widget.removeOrder!();
+  //                 }
+  //               },
+  //               icon: const Icon(
+  //                 Icons.delete,
+  //                 color: Colors.red,
+  //                 size: 30,
+  //               ))
+  //         ],
+  //       );
+  //     case FoodItemState.preparing:
+  //       return const Icon(
+  //         Icons.sync,
+  //         size: 30,
+  //         color: Colors.green,
+  //       );
+  //     case FoodItemState.ready:
+  //       return const Icon(
+  //         Icons.check_circle_outline,
+  //         size: 30,
+  //         color: Colors.green,
+  //       );
+  //     default:
+  //       return const Icon(Icons.check_circle, size: 30, color: Colors.green);
+  //   }
+  // }
 }
+

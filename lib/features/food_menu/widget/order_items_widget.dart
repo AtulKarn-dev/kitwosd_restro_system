@@ -42,7 +42,6 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
               return OrderStatusTile(
                 sn: index + 1,
                 title: item.title,
-                state: item.state,
                 index: index,
                 removeOrder: removetile,
                 subtitle: quantity(),

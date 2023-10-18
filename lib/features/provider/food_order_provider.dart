@@ -23,11 +23,11 @@ class FoodOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateFoodItemState(int index, FoodItemState state) {
-    FoodItem item = mainFoodList[index];
-    item.state = state;
-    notifyListeners();
-  }
+  // void updateFoodItemState(int index, FoodItemState state) {
+  //   FoodItem item = mainFoodList[index];
+  //   item.state = state;
+  //   notifyListeners();
+  // }
 
   void deleteAddedOrderItem(int index) {
     mainFoodList.removeAt(index);
@@ -49,4 +49,3 @@ class FoodOrderProvider extends ChangeNotifier {
     //  notifyListeners();
   }
 }
-

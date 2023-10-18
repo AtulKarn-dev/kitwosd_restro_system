@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/request/get_order_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/controller/get_order_controller.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_list_tile.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:provider/provider.dart';
@@ -99,29 +101,62 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   flex: 3,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height - 330,
-                    child: Consumer<FoodOrderProvider>(
-                      builder: (context, provider, child) => ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            FoodItem item = provider.mainFoodList[index];
-                            return OrderListTile(
-                              id: index,
-                              sn: index + 1,
-                              status: item.state,
-                              subtitle: item.description,
-                              title: item.title,
-                              price: item.currentPrice,
-                              onStatusChange: (value) =>
-                                  provider.updateFoodItemState(index, value),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 8.w,
-                            );
-                          },
-                          itemCount: provider.mainFoodList.length),
+                    child: FutureBuilder<List<Datum>>(
+                      future:
+                          FoodOrderController().getOrder(widget.id.toString()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Datum> data = snapshot.data!;
+                          return ListView.separated(
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                Datum item = data[index];
+                                return OrderListTile(
+                                    id: index,
+                                    sn: index + 1,
+                                    status: item.items.state,
+                                    subtitle: item.items.description,
+                                    title: item.items.title,
+                                    price: item.items.currentPrice,
+                                    onStatusChange: (value) {
+                                      
+                                    });
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  height: 8.w,
+                                );
+                              },
+                              itemCount: data.length);
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
                     ),
+                    // child: Consumer<FoodOrderProvider>(
+                    //   builder: (context, provider, child) => ListView.separated(
+                    //       shrinkWrap: true,
+                    //       itemBuilder: (context, index) {
+                    //         FoodItem item = provider.mainFoodList[index];
+                    //         return OrderListTile(
+                    //           id: index,
+                    //           sn: index + 1,
+                    //           status: item.state,
+                    //           subtitle: item.description,
+                    //           title: item.title,
+                    //           price: item.currentPrice,
+                    //           onStatusChange: (value) =>
+                    //               provider.updateFoodItemState(index, value),
+                    //         );
+                    //       },
+                    //       separatorBuilder: (context, index) {
+                    //         return SizedBox(
+                    //           height: 8.w,
+                    //         );
+                    //       },
+                    //       itemCount: provider.mainFoodList.length),
+                    // ),
                   ),
                 ),
                 SizedBox(
