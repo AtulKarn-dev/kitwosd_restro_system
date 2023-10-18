@@ -118,9 +118,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                                     subtitle: item.items.description,
                                     title: item.items.title,
                                     price: item.items.currentPrice,
-                                    onStatusChange: (value) {
-                                      
-                                    });
+                                    onStatusChange: (value) {});
                               },
                               separatorBuilder: (context, index) {
                                 return SizedBox(
@@ -128,6 +126,12 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                                 );
                               },
                               itemCount: data.length);
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text(
+                            'Select Your Orders',
+                            style: TextStyle(fontSize: 8.sp),
+                          ));
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());
