@@ -50,7 +50,7 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
               },
               itemCount: data.length);
         } else {
-          return Center(child: const CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     )
