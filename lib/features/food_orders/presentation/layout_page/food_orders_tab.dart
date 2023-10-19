@@ -102,8 +102,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height - 330,
                     child: FutureBuilder<List<Datum>>(
-                      future:
-                          FoodOrderController().getOrder(widget.id.toString()),
+                      future: FoodOrderController().getOrder(widget.id),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<Datum> data = snapshot.data!;

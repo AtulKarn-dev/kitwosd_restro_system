@@ -7,7 +7,7 @@ import 'package:kitwosd_restro_system/features/food_orders/api/request/get_order
 import 'package:kitwosd_restro_system/network/client_info.dart';
 
 class FoodOrderController {
-  Future<List<Datum>> getOrder(String id) async {
+  Future<List<Datum>> getOrder(int id) async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
