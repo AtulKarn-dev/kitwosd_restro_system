@@ -23,20 +23,20 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Datum> data = snapshot.data!;
-          Widget? quantity() {
-            return Text(
-              'Quantity: ',
-              style: TextStyle(
-                  fontSize: 4.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff868686)),
-            );
-          }
-
           return ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 Datum item = data[index];
+                Widget? quantity() {
+                  return Text(
+                    'Quantity: ${item.quantity}',
+                    style: TextStyle(
+                        fontSize: 4.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff868686)),
+                  );
+                }
+
                 return OrderStatusTile(
                     sn: index + 1,
                     title: item.items.title,
