@@ -18,7 +18,8 @@ class _FoodOrdersState extends State<FoodOrders> {
     return Scaffold(
       body: isTablet ? FoodOrdersTab(id: widget.id) : const FoodOrdersMobile(),
       floatingActionButton:
-          isTablet ? const FloatingButtonTab() : const FloatingButtonMobile(),
+          isTablet ?  FloatingButtonTab(id: widget.id,) :  FloatingButtonMobile(id: widget.id),
     );
   }
 }
+

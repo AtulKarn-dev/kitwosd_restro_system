@@ -7,8 +7,9 @@ import 'package:kitwosd_restro_system/features/food_menu/widget/order_items_widg
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 
 class MenuTabBarWidget extends StatefulWidget {
+  final int id;
   final List<String> categories;
-  const MenuTabBarWidget({super.key, required this.categories});
+  const MenuTabBarWidget({super.key, required this.categories,required this.id});
 
   @override
   State<MenuTabBarWidget> createState() => _MenuTabBarWidgetState();
@@ -92,7 +93,7 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                   },
                 ),
               ),
-              const OrderItemsWidget(),
+               OrderItemsWidget(id: widget.id),
             ],
           ),
         ),

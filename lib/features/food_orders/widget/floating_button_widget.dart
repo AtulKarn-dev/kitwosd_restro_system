@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/presentation/food_list.dart';
 
 class FloatingButtonTab extends StatefulWidget {
-  const FloatingButtonTab({super.key});
+  final int id;
+  const FloatingButtonTab({super.key, required this.id});
 
   @override
   State<FloatingButtonTab> createState() => _FloatingButtonTabState();
@@ -14,8 +15,12 @@ class _FloatingButtonTabState extends State<FloatingButtonTab> {
   Widget build(BuildContext context) {
     return FloatingActionButton.large(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const FoodList()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FoodList(
+                        id: widget.id,
+                      )));
         },
         foregroundColor: Colors.white,
         backgroundColor: const Color.fromARGB(255, 231, 62, 118),
@@ -28,7 +33,8 @@ class _FloatingButtonTabState extends State<FloatingButtonTab> {
 }
 
 class FloatingButtonMobile extends StatefulWidget {
-  const FloatingButtonMobile({super.key});
+  final int id;
+  const FloatingButtonMobile({super.key,required this.id});
 
   @override
   State<FloatingButtonMobile> createState() => _FloatingButtonMobileState();
@@ -40,7 +46,7 @@ class _FloatingButtonMobileState extends State<FloatingButtonMobile> {
     return FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const FoodList()));
+              MaterialPageRoute(builder: (context) => FoodList(id: widget.id)));
         },
         foregroundColor: Colors.white,
         backgroundColor: const Color.fromARGB(255, 231, 62, 118),

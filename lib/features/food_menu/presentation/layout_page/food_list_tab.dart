@@ -8,8 +8,9 @@ import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart
 import 'package:provider/provider.dart';
 
 class FoodListTab extends StatefulWidget {
+  final int id;
   const FoodListTab({
-    super.key,
+    super.key,required this.id
   });
 
   @override
@@ -171,7 +172,7 @@ class _FoodListTabState extends State<FoodListTab> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<String> data = snapshot.data!;
-                          return MenuTabBarWidget(categories: data);
+                          return MenuTabBarWidget(categories: data,id: widget.id,);
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());
