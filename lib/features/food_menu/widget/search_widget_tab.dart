@@ -12,14 +12,6 @@ String? price;
 StatefulBuilder searchWidget(
     BuildContext context, FoodMenu menu, List<FoodItem> item) {
   final List<String> entries = ['\$', '\$\$', '\$\$\$', '\$\$\$\$'];
-  // List<FoodItem> chinese = [
-  //   FoodItem(
-  //     'Fried Rice on Pot',
-  //     'Shortbread, chocolate turtle cookies, and red velvet.',
-  //     'Rs.500',
-  //     'assets/images/fried_rice.jpg',
-  //   ),
-  // ];
   List<String?> priceRange = ['1', '2', '3', '4'];
   return StatefulBuilder(builder: (context, setState) {
     return Row(

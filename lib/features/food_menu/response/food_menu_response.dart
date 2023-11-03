@@ -43,7 +43,6 @@ class FoodCategoryItem {
 
 class Data {
   List<FoodCategoryItem> categoryItems;
-
   Data({
     required this.categoryItems,
   });
@@ -241,4 +240,3 @@ class Categories {
         "updated_at": updatedAt.toIso8601String(),
       };
 }
-
