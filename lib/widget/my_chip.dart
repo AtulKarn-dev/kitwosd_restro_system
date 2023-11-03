@@ -5,7 +5,7 @@ import 'package:kitwosd_restro_system/widget/ripple.dart';
 
 class MyChip extends StatefulWidget {
   final String text;
-  final Color color;
+  final Color textColor;
   final Color backgroundColor;
   final Function onTap;
   final EdgeInsets? edgeInsets;
@@ -17,7 +17,7 @@ class MyChip extends StatefulWidget {
       required this.text,
       required this.onTap,
       this.edgeInsets,
-      this.color = const Color(0xff6f7773),
+      this.textColor = const Color(0xff6f7773),
       this.backgroundColor = const Color(0xfff1f1f1),
       this.shape = const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -43,7 +43,7 @@ class _MyChipState extends State<MyChip> {
             style: TextStyle(
                 fontSize: isTablet ? 4.sp : widget.fontsize,
                 fontWeight: FontWeight.w700,
-                color: widget.color),
+                color: widget.textColor),
           ),
           labelPadding: widget.edgeInsets,
           backgroundColor: widget.backgroundColor),
