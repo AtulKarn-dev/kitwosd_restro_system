@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/api/request/get_order_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/get_order_controller.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_list_tile.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
-import 'package:provider/provider.dart';
 
 class FoodOrdersTab extends StatefulWidget {
   final int id;
@@ -113,7 +110,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                                 return OrderListTile(
                                     id: index,
                                     sn: index + 1,
-                                    status: item.items.state,
+                                    status: item.status,
                                     subtitle: item.items.description,
                                     title: item.items.title,
                                     price: item.items.currentPrice,
