@@ -10,7 +10,7 @@ String selectedDietary = 'any';
 String? price;
 
 StatefulBuilder searchWidget(
-    BuildContext context, FoodMenu menu, List<FoodItem> item) {
+    BuildContext context, FoodMenu menu, List<FoodItem> items) {
   final List<String> entries = ['\$', '\$\$', '\$\$\$', '\$\$\$\$'];
   List<String?> priceRange = ['1', '2', '3', '4'];
   return StatefulBuilder(builder: (context, setState) {
@@ -55,7 +55,7 @@ StatefulBuilder searchWidget(
                           setState(() {
                             selectedCategories = 'all';
                             setState(() {
-                              menu = FoodMenu(mainFoodList: item);
+                              menu = FoodMenu(mainFoodList: items);
                             });
                           });
                         },
@@ -77,7 +77,7 @@ StatefulBuilder searchWidget(
                   children: [
                     MyChip(
                       text: 'ALL',
-                      color: getTextColorCategories('all'),
+                      textColor: getTextColorCategories('all'),
                       backgroundColor: getBackgroundColorCategories('all'),
                       onTap: () {
                         setState(() {
@@ -87,7 +87,7 @@ StatefulBuilder searchWidget(
                     ),
                     MyChip(
                         text: 'BRUNCH',
-                        color: getTextColorCategories('br'),
+                        textColor: getTextColorCategories('br'),
                         backgroundColor: getBackgroundColorCategories('br'),
                         onTap: () {
                           setState(() {
@@ -96,7 +96,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'DINNER',
-                        color: getTextColorCategories('d'),
+                        textColor: getTextColorCategories('d'),
                         backgroundColor: getBackgroundColorCategories('d'),
                         onTap: () {
                           setState(() {
@@ -105,14 +105,14 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'BURGERS',
-                        color: getTextColorCategories('b'),
+                        textColor: getTextColorCategories('b'),
                         backgroundColor: getBackgroundColorCategories('b'),
                         onTap: () {
                           setState(() => selectedCategories = 'b');
                         }),
                     MyChip(
                         text: 'CHINESE',
-                        color: getTextColorCategories('c'),
+                        textColor: getTextColorCategories('c'),
                         backgroundColor: getBackgroundColorCategories('c'),
                         onTap: () {
                           setState(() {
@@ -121,7 +121,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'PIZZA',
-                        color: getTextColorCategories('p'),
+                        textColor: getTextColorCategories('p'),
                         backgroundColor: getBackgroundColorCategories('p'),
                         onTap: () {
                           setState(() {
@@ -130,7 +130,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'SALADS',
-                        color: getTextColorCategories('s'),
+                        textColor: getTextColorCategories('s'),
                         backgroundColor: getBackgroundColorCategories('s'),
                         onTap: () {
                           setState(() {
@@ -139,7 +139,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'SOUPS',
-                        color: getTextColorCategories('sp'),
+                        textColor: getTextColorCategories('sp'),
                         backgroundColor: getBackgroundColorCategories('sp'),
                         onTap: () {
                           setState(() {
@@ -148,7 +148,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'BREAKFAST',
-                        color: getTextColorCategories('brk'),
+                        textColor: getTextColorCategories('brk'),
                         backgroundColor: getBackgroundColorCategories('brk'),
                         onTap: () {
                           setState(() {
@@ -194,7 +194,7 @@ StatefulBuilder searchWidget(
                   children: [
                     MyChip(
                       text: 'ANY',
-                      color: getTextColorDietry('any'),
+                      textColor: getTextColorDietry('any'),
                       backgroundColor: getBackgroundColorDietry('any'),
                       onTap: () {
                         setState(() {
@@ -204,7 +204,7 @@ StatefulBuilder searchWidget(
                     ),
                     MyChip(
                         text: 'VEGETERIAN',
-                        color: getTextColorDietry('v'),
+                        textColor: getTextColorDietry('v'),
                         backgroundColor: getBackgroundColorDietry('v'),
                         onTap: () {
                           setState(() {
@@ -213,7 +213,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'VEGAN',
-                        color: getTextColorDietry('vn'),
+                        textColor: getTextColorDietry('vn'),
                         backgroundColor: getBackgroundColorDietry('vn'),
                         onTap: () {
                           setState(() {
@@ -222,7 +222,7 @@ StatefulBuilder searchWidget(
                         }),
                     MyChip(
                         text: 'NON-VEG',
-                        color: getTextColorDietry('g'),
+                        textColor: getTextColorDietry('g'),
                         backgroundColor: getBackgroundColorDietry('g'),
                         onTap: () {
                           setState(() {
@@ -308,19 +308,19 @@ StatefulBuilder searchWidget(
                           });
                         } else {
                           setState(() {
-                            menu = FoodMenu(mainFoodList: item);
+                            menu = FoodMenu(mainFoodList: items);
                           });
                         }
                       } else {
                         setState(() {
-                          menu = FoodMenu(mainFoodList: item);
+                          menu = FoodMenu(mainFoodList: items);
                         });
                       }
                     },
                     text: 'APPLY FILTERS',
                     edgeInsets:
                         EdgeInsets.symmetric(horizontal: 50.w, vertical: 4.w),
-                    color: Colors.white,
+                    textColor: Colors.white,
                     backgroundColor: const Color(0xffF8B64C)),
               ],
             ))
