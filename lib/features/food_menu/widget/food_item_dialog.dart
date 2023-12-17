@@ -63,20 +63,19 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                       return const Text('No Variants Found!');
                     } else {
                       int selectedValue = data[0].id;
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: Container(
-                            height: 30.h,
-                            padding: EdgeInsets.only(left: 3.w),
-                            decoration: BoxDecoration(
+                      return Container(
+                          width: 85.w,
+                          height: 35.h,
+                          decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
-                              border: Border.all(color: Colors.grey),
-                            ),
+                              border: Border.all(color: Colors.grey, width: 2),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Center(
                             child: DropdownWidget(
                               selectedValue: selectedValue,
                               data: data,
-                            )),
-                      );
+                            ),
+                          ));
                     }
                   } else {
                     return const Center(child: CircularProgressIndicator());
@@ -117,16 +116,17 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                             size: 20.r,
                           )),
                   Container(
-                    width: 30.w,
-                    height: 20.h,
+                    width: 60.w,
+                    height: 30.h,
                     decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(color: Colors.grey),
-                    ),
+                        shape: BoxShape.rectangle,
+                        border: Border.all(color: Colors.grey, width: 2),
+                        borderRadius: BorderRadius.circular(6)),
                     child: Center(
                         child: Text(
                       itemCount.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 6.sp),
                     )),
                   ),
                   IconButton(
