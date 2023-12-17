@@ -13,6 +13,7 @@ class OrderListTile extends StatefulWidget {
       required this.status,
       required this.subtitle,
       required this.title,
+      required this.quantity,
       required this.price,
       this.onStatusChange});
 
@@ -22,6 +23,7 @@ class OrderListTile extends StatefulWidget {
   final String subtitle;
   final String? price;
   final FoodItemState status;
+  final String quantity;
 
   ValueChanged<FoodItemState>? onStatusChange;
 
@@ -54,7 +56,7 @@ class _OrderListTileState extends State<OrderListTile> {
                   color: const Color(0xffF8B64C)),
             )),
         title: Text(
-          widget.title,
+         '${widget.title} X ${widget.quantity}' ,
           style: TextStyle(
             fontSize: 6.sp,
             color: Colors.black.withOpacity(0.7),
