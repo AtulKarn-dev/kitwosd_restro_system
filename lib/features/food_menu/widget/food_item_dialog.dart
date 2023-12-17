@@ -149,8 +149,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
           Text(
             'Extra/Specials/Add ons/Side Dishes/Toppings',
             style: TextStyle(
-                fontSize: isTablet ? 5.sp : 12.sp,
-                color: const Color(0xff69716d)),
+                fontSize: isTablet ? 5.sp : 12.sp, color: Colors.black),
           ),
           FutureBuilder<List<Addon>?>(
             future: getAddons(),
