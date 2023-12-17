@@ -113,6 +113,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                                     status: item.status,
                                     subtitle: item.items.description,
                                     title: item.items.title,
+                                    quantity: item.quantity,
                                     price: item.items.currentPrice,
                                     onStatusChange: (value) {});
                               },
