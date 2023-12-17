@@ -40,7 +40,7 @@ List<DropdownMenuItem<int>>? variants(List<Addon> variantItems) {
     variants.add(DropdownMenuItem(
       value: items.id,
       child: Text(
-        '${items.title}: \nRs. ${items.currentPrice}',
+        '${items.title}: Rs. ${items.currentPrice}',
         style: TextStyle(fontSize: isTablet ? 4.sp : 10.sp),
       ),
     ));
