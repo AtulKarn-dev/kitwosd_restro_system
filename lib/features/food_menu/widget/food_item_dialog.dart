@@ -65,7 +65,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                       int selectedValue = data[0].id;
                       return Container(
                           width: 85.w,
-                          height: 35.h,
+                          height: 40.h,
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               border: Border.all(color: Colors.grey, width: 2),
