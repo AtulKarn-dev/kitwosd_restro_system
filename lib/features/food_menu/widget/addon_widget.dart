@@ -21,7 +21,7 @@ class _AddOnsWidgetState extends State<AddOnsWidget> {
   Widget build(BuildContext context) {
     return isTablet
         ? CheckboxListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 0.w),
+            contentPadding: EdgeInsets.zero,
             activeColor: const Color(0xffeea734),
             side: const BorderSide(color: Color(0xffeea734)),
             value: widget.selectedValue,
