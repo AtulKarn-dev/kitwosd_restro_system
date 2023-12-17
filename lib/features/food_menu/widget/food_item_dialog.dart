@@ -43,30 +43,29 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
       height: isTablet ? 140.w : 320.w,
       width: isTablet ? 120.w : 250.w,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  'Variants',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: isTablet ? 5.sp : 10.sp),
-                ),
-                SizedBox(
-                  height: 3.w,
-                ),
-                FutureBuilder<List<Addon>?>(
-                  future: getVariants(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<Addon> data = snapshot.data!;
-                      if (data.isEmpty) {
-                        return const Text('No Variants Found!');
-                      } else {
-                        int selectedValue = data[0].id;
-                        return Container(
+              Text(
+                'Variants',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: isTablet ? 5.sp : 10.sp),
+              ),
+              FutureBuilder<List<Addon>?>(
+                future: getVariants(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Addon> data = snapshot.data!;
+                    if (data.isEmpty) {
+                      return const Text('No Variants Found!');
+                    } else {
+                      int selectedValue = data[0].id;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Container(
                             height: 30.h,
                             padding: EdgeInsets.only(left: 3.w),
                             decoration: BoxDecoration(
@@ -76,68 +75,72 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                             child: DropdownWidget(
                               selectedValue: selectedValue,
                               data: data,
-                            ));
-                      }
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
+                            )),
+                      );
                     }
-                  },
-                ),
-              ]),
-              Column(
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 3.w,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Quantity',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: isTablet ? 5.sp : 10.sp),
+              ),
+              Row(
                 children: [
-                  Text(
-                    'Quantity',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: isTablet ? 5.sp : 10.sp),
-                  ),
-                  Row(
-                    children: [
-                      itemCount != 1
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  itemCount--;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.remove,
-                                size: 20.r,
-                              ))
-                          : IconButton(
-                              onPressed: null,
-                              icon: Icon(
-                                Icons.remove,
-                                size: 20.r,
-                              )),
-                      Container(
-                        width: 30.w,
-                        height: 20.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Center(
-                            child: Text(
-                          itemCount.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                      ),
-                      IconButton(
+                  itemCount != 1
+                      ? IconButton(
                           onPressed: () {
                             setState(() {
-                              itemCount++;
+                              itemCount--;
                             });
                           },
                           icon: Icon(
-                            Icons.add,
+                            Icons.remove,
+                            size: 20.r,
+                          ))
+                      : IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.remove,
                             size: 20.r,
                           )),
-                    ],
-                  )
+                  Container(
+                    width: 30.w,
+                    height: 20.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: Center(
+                        child: Text(
+                      itemCount.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          itemCount++;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        size: 20.r,
+                      )),
                 ],
-              )
+              ),
             ],
           ),
           SizedBox(
@@ -174,11 +177,11 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
             children: [
               Text(
                 'Total',
-                style: TextStyle(fontSize: isTablet ? 5.sp : 12.sp),
+                style: TextStyle(fontSize: isTablet ? 8.sp : 12.sp),
               ),
               Text(
                 'Rs.00',
-                style: TextStyle(fontSize: isTablet ? 5.sp : 12.sp),
+                style: TextStyle(fontSize: isTablet ? 6.sp : 12.sp),
               )
             ],
           ),
