@@ -90,7 +90,7 @@ class _FoodFilterState extends State<FoodFilter> {
               runSpacing: 2.w,
               children: [
                 MyChip(
-                  color: getTextColorCategories('all'),
+                  textColor: getTextColorCategories('all'),
                   backgroundColor: getBackgroundColorCategories('all'),
                   text: 'ALL',
                   onTap: () {
@@ -106,7 +106,7 @@ class _FoodFilterState extends State<FoodFilter> {
                         selectedCategories = 'br';
                       });
                     },
-                    color: getTextColorCategories('br'),
+                    textColor: getTextColorCategories('br'),
                     backgroundColor: getBackgroundColorCategories('br')),
                 MyChip(
                   text: 'DINNER',
@@ -115,7 +115,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'd';
                     });
                   },
-                  color: getTextColorCategories('d'),
+                  textColor: getTextColorCategories('d'),
                   backgroundColor: getBackgroundColorCategories('d'),
                 ),
                 MyChip(
@@ -125,7 +125,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'b';
                     });
                   },
-                  color: getTextColorCategories('b'),
+                  textColor: getTextColorCategories('b'),
                   backgroundColor: getBackgroundColorCategories('b'),
                 ),
                 MyChip(
@@ -135,7 +135,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'c';
                     });
                   },
-                  color: getTextColorCategories('c'),
+                  textColor: getTextColorCategories('c'),
                   backgroundColor: getBackgroundColorCategories('c'),
                 ),
                 MyChip(
@@ -145,7 +145,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'p';
                     });
                   },
-                  color: getTextColorCategories('p'),
+                  textColor: getTextColorCategories('p'),
                   backgroundColor: getBackgroundColorCategories('p'),
                 ),
                 MyChip(
@@ -155,7 +155,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 's';
                     });
                   },
-                  color: getTextColorCategories('s'),
+                  textColor: getTextColorCategories('s'),
                   backgroundColor: getBackgroundColorCategories('s'),
                 ),
                 MyChip(
@@ -165,7 +165,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'sp';
                     });
                   },
-                  color: getTextColorCategories('sp'),
+                  textColor: getTextColorCategories('sp'),
                   backgroundColor: getBackgroundColorCategories('sp'),
                 ),
                 MyChip(
@@ -175,7 +175,7 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedCategories = 'brk';
                     });
                   },
-                  color: getTextColorCategories('brk'),
+                  textColor: getTextColorCategories('brk'),
                   backgroundColor: getBackgroundColorCategories('brk'),
                 ),
               ],
@@ -216,7 +216,7 @@ class _FoodFilterState extends State<FoodFilter> {
               children: [
                 MyChip(
                   text: 'ANY',
-                  color: getTextColorDietry('any'),
+                  textColor: getTextColorDietry('any'),
                   backgroundColor: getBackgroundColorDietry('any'),
                   onTap: () {
                     setState(() {
@@ -226,7 +226,7 @@ class _FoodFilterState extends State<FoodFilter> {
                 ),
                 MyChip(
                   text: 'VEGETERIAN',
-                  color: getTextColorDietry('v'),
+                  textColor: getTextColorDietry('v'),
                   backgroundColor: getBackgroundColorDietry('v'),
                   onTap: () {
                     setState(() {
@@ -241,12 +241,12 @@ class _FoodFilterState extends State<FoodFilter> {
                       selectedDietary = 'vn';
                     });
                   },
-                  color: getTextColorDietry('vn'),
+                  textColor: getTextColorDietry('vn'),
                   backgroundColor: getBackgroundColorDietry('vn'),
                 ),
                 MyChip(
                     text: 'GLUTEN-FREE',
-                    color: getTextColorDietry('g'),
+                    textColor: getTextColorDietry('g'),
                     backgroundColor: getBackgroundColorDietry('g'),
                     onTap: () {
                       setState(() {
@@ -331,7 +331,7 @@ class _FoodFilterState extends State<FoodFilter> {
                   fontsize: 14.sp,
                   edgeInsets:
                       EdgeInsets.symmetric(horizontal: 80.w, vertical: 10.w),
-                  color: Colors.white,
+                  textColor: Colors.white,
                   backgroundColor: const Color(0xffF8B64C)),
             ),
           ],
