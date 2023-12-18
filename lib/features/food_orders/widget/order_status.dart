@@ -16,7 +16,8 @@ class _OrderStatusState extends State<OrderStatus> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isTablet ? 7.w : 20.w,
+      height: isTablet ? 8.w : 20.w,
+      width: isTablet ? 35.w : null,
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -25,16 +26,16 @@ class _OrderStatusState extends State<OrderStatus> {
         child: DropdownButton(
             value: widget.status,
             items: FoodItemState.values
-                .map((value) => DropdownMenuItem(
-                      value: value,
-                      child: Text(
+                .map(
+                  (value) => DropdownMenuItem(
+                    value: value,
+                    child: Text(
                       value.apiValue,
                       style: TextStyle(fontSize: 4.sp),
                     ),
                   ),
                 )
                 .toList(),
-
             onChanged: (v) {
               FoodItemState state = v!;
               widget.onStatusChange?.call(state);

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
@@ -79,34 +78,32 @@ class FoodMenuState extends State<FoodMenu> {
                         fontWeight: FontWeight.w400,
                         fontSize: isTablet ? 4.sp : 10.sp),
                   ),
-                  trailing: Padding(
-                    padding: EdgeInsets.only(
-                      top: 4.h,
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
+                  trailing: Column(
+                    children: [
+                      Expanded(
+                        child: Text(
                           'Rs.${foodItem.currentPrice}',
                           style: TextStyle(
                               fontSize: isTablet ? 5.sp : 10.sp,
                               fontWeight: FontWeight.w600,
                               color: const Color(0xff6f7773)),
                         ),
-                        Expanded(
-                          child: TextButton(
-                              onPressed: () {
-                                dialogBox(context, id, widget.isSearching);
-                              },
-                              child: Text(
-                                'Add Item',
-                                style: TextStyle(
-                                    color: const Color(0xffF8B64C),
-                                    fontSize: isTablet ? 5.sp : 10.sp,
-                                    fontWeight: FontWeight.w800),
-                              )),
-                        )
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: TextButton(
+                            onPressed: () {
+                              dialogBox(context, id, widget.isSearching);
+                            },
+                            child: Text(
+                              'Add Item',
+                              style: TextStyle(
+                                  color: const Color(0xffF8B64C),
+                                  fontSize: isTablet ? 6.sp : 10.sp,
+                                  fontWeight: FontWeight.w800),
+                            )),
+                      )
+                    ],
                   ),
                 );
               }));

@@ -36,7 +36,7 @@ class _OrderListTileState extends State<OrderListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 6.w),
+      padding: EdgeInsets.symmetric(vertical: 10.w),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(color: const Color(0xFFe3e3e3))),
@@ -56,7 +56,7 @@ class _OrderListTileState extends State<OrderListTile> {
                   color: const Color(0xffF8B64C)),
             )),
         title: Text(
-         '${widget.title} X ${widget.quantity}' ,
+          '${widget.title} X ${widget.quantity}',
           style: TextStyle(
             fontSize: 6.sp,
             color: Colors.black.withOpacity(0.7),
@@ -99,7 +99,7 @@ class _OrderListTileState extends State<OrderListTile> {
                   fontSize: 5.sp),
             ),
             SizedBox(
-              height: 5.w,
+              height: 1.w,
             ),
             OrderStatus(
               status: widget.status,

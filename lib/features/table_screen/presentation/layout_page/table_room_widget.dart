@@ -14,7 +14,7 @@ class TableRoomWidget extends StatefulWidget {
 class _TableRoomState extends State<TableRoomWidget>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +33,7 @@ class _TableRoomState extends State<TableRoomWidget>
     return Column(
       children: [
         TabBar(
+            padding: EdgeInsets.only(bottom: 4.h),
             controller: tabController,
             isScrollable: true,
             tabs: List<Tab>.generate(
@@ -53,4 +54,3 @@ class _TableRoomState extends State<TableRoomWidget>
     );
   }
 }
-
