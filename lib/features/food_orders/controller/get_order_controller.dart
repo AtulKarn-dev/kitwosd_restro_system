@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:kitwosd_restro_system/error/exceptions.dart';
 import 'package:kitwosd_restro_system/error/http_exceptions.dart';
-import 'package:kitwosd_restro_system/features/food_orders/api/request/get_order_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_response.dart';
 import 'package:kitwosd_restro_system/network/client_info.dart';
 
 class FoodOrderController {
