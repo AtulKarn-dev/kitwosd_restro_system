@@ -29,38 +29,25 @@ class _TableRoomMobileState extends State<TableRoomMobile>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Tables',
-          style: TextStyle(
-              fontSize: 24.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xff020f06)),
-        ),
-      ),
-      body: Column(
-        children: [
-          TabBar(
-              controller: tabController,
-              isScrollable: true,
-              tabs: List.generate(
-                  4,
-                  (index) => Tab(
-                          child: Text(
-                        rooms[index],
-                        style: TextStyle(fontSize: 12.sp),
-                      )))),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: List.generate(4, (index) => const TablesMobile()),
-            ),
+    return Column(
+      children: [
+        TabBar(
+            controller: tabController,
+            isScrollable: true,
+            tabs: List.generate(
+                4,
+                (index) => Tab(
+                        child: Text(
+                      rooms[index],
+                      style: TextStyle(fontSize: 12.sp),
+                    )))),
+        Expanded(
+          child: TabBarView(
+            controller: tabController,
+            children: List.generate(4, (index) => const TablesMobile()),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
