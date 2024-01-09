@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class OrderStatus extends StatefulWidget {

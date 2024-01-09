@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/get_order_controller.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/order_list_tile.dart';
 
@@ -98,21 +98,31 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   flex: 3,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height - 330,
-                    child: FutureBuilder<List<Datum>>(
+                    child: FutureBuilder<List<OrderItem>>(
                       future: FoodOrderController().getOrder(widget.id),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<Datum> data = snapshot.data!;
+                          List<OrderItem> data = snapshot.data!;
                           return ListView.separated(
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                Datum item = data[index];
+                                OrderItem item = data[index];
+                                List<String?> addExtra = [];
+                                for (OrderItemAddon orderItemAddon
+                                    in item.orderItemAddons) {
+                                  addExtra.add(orderItemAddon.addOns.title);
+                                }
+                                List<String?> noAddons = ["No Addons!!"];
                                 return OrderListTile(
                                     id: index,
                                     sn: index + 1,
                                     status: item.status,
                                     subtitle: item.items.description,
                                     title: item.items.title,
+                                    variant: item.variants.title,
+                                    addOns: addExtra.isNotEmpty
+                                        ? addExtra
+                                        : noAddons,
                                     quantity: item.quantity,
                                     price: item.items.currentPrice,
                                     onStatusChange: (value) {});

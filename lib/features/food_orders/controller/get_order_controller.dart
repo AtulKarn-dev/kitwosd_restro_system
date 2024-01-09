@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:kitwosd_restro_system/error/exceptions.dart';
 import 'package:kitwosd_restro_system/error/http_exceptions.dart';
-import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_response.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/network/client_info.dart';
 
 class FoodOrderController {
-  Future<List<Datum>> getOrder(int id) async {
+  Future<List<OrderItem>> getOrder(int id) async {
     Response<String>? response;
     try {
       Dio dio = await getDioWithToken();
@@ -16,9 +16,9 @@ class FoodOrderController {
       if (response.statusCode == 200) {
         GetOrderResponse getOrderResponse =
             getOrderResponseFromJson(response.data!);
-        List<Datum> itemsList = [];
-        for (Datum items in getOrderResponse.data) {
-          itemsList.add(items);
+        List<OrderItem> itemsList = [];
+        for (OrderItem item in getOrderResponse.data.orderItems) {
+          itemsList.add(item);
         }
         return itemsList;
       } else {
