@@ -98,53 +98,59 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   flex: 3,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height - 330,
-                    child: FutureBuilder<List<OrderItem>>(
-                      future: FoodOrderController().getOrder(widget.id),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<OrderItem> data = snapshot.data!;
-                          return ListView.separated(
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                OrderItem item = data[index];
-                                List<String?> addExtra = [];
-                                for (OrderItemAddon orderItemAddon
-                                    in item.orderItemAddons) {
-                                  addExtra.add(orderItemAddon.addOns.title);
-                                }
-                                List<String?> noAddons = ["No Addons!!"];
-                                return OrderListTile(
-                                    id: index,
-                                    sn: index + 1,
-                                    status: item.status,
-                                    subtitle: item.items.description,
-                                    title: item.items.title,
-                                    variant: item.variants.title,
-                                    addOns: addExtra.isNotEmpty
-                                        ? addExtra
-                                        : noAddons,
-                                    quantity: item.quantity,
-                                    price: item.items.currentPrice,
-                                    onStatusChange: (value) {});
-                              },
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 8.w,
-                                );
-                              },
-                              itemCount: data.length);
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text(
-                            'Select Your Orders',
-                            style: TextStyle(fontSize: 8.sp),
-                          ));
-                        } else {
+                    child: FutureBuilder<List<OrderItem>?>(
+                        future: FoodOrderController().getOrder(widget.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.data != null) {
+                            if (snapshot.data!.isNotEmpty) {
+                              List<OrderItem> data = snapshot.data!;
+                              return ListView.separated(
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    OrderItem item = data[index];
+                                    List<String?> addExtra = [];
+                                    for (OrderItemAddon orderItemAddon
+                                        in item.orderItemAddons) {
+                                      addExtra.add(orderItemAddon.addOns.title);
+                                    }
+                                    List<String?> noAddons = ["No Addons!!"];
+                                    return OrderListTile(
+                                        id: index,
+                                        sn: index + 1,
+                                        status: item.status,
+                                        subtitle: item.items.description,
+                                        title: item.items.title,
+                                        variant: item.variants.title,
+                                        addOns: addExtra.isNotEmpty
+                                            ? addExtra
+                                            : noAddons,
+                                        quantity: item.quantity,
+                                        price: item.items.currentPrice,
+                                        onStatusChange: (value) {});
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: 8.w,
+                                    );
+                                  },
+                                  itemCount: data.length);
+                            } else {
+                              return Center(
+                                  child: Text(
+                                'Select Your Orders',
+                                style: TextStyle(fontSize: 8.sp),
+                              ));
+                            }
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text(
+                              'Table is Vacant!!',
+                              style: TextStyle(fontSize: 8.sp),
+                            ));
+                          }
                           return const Center(
                               child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
+                        }),
                     // child: Consumer<FoodOrderProvider>(
                     //   builder: (context, provider, child) => ListView.separated(
                     //       shrinkWrap: true,

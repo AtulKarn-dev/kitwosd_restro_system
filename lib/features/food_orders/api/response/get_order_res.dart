@@ -40,7 +40,7 @@ class Data {
     DateTime updatedAt;
     dynamic paymentDate;
     Tables tables;
-    List<OrderItem> orderItems;
+    List<OrderItem>? orderItems;
 
     Data({
         required this.id,
@@ -96,7 +96,7 @@ class Data {
         "updated_at": updatedAt.toIso8601String(),
         "payment_date": paymentDate,
         "tables": tables.toJson(),
-        "order_items": List<dynamic>.from(orderItems.map((x) => x.toJson())),
+        "order_items": List<dynamic>.from(orderItems!.map((x) => x.toJson())),
     };
 }
 
@@ -112,6 +112,7 @@ class OrderItem {
     DateTime updatedAt;
     Items items;
     Variants variants;
+
     List<OrderItemAddon> orderItemAddons;
     FoodItemState get status {
     return FoodItemState.values

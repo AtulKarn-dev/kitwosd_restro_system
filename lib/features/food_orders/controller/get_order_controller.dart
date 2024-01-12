@@ -17,7 +17,7 @@ class FoodOrderController {
         GetOrderResponse getOrderResponse =
             getOrderResponseFromJson(response.data!);
         List<OrderItem> itemsList = [];
-        for (OrderItem item in getOrderResponse.data.orderItems) {
+        for (OrderItem item in getOrderResponse.data.orderItems!) {
           itemsList.add(item);
         }
         return itemsList;
