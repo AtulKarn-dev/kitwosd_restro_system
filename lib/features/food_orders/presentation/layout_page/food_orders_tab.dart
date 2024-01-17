@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/get_order_controller.dart';
-import 'package:kitwosd_restro_system/features/food_orders/widget/order_list_tile.dart';
+import 'package:kitwosd_restro_system/features/food_orders/widget/food_order_list.dart';
+import 'package:kitwosd_restro_system/features/food_orders/widget/statistic.dart';
 
 class FoodOrdersTab extends StatefulWidget {
   final int id;
@@ -92,201 +93,43 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
             SizedBox(
               height: 4.w,
             ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 330,
-                    child: FutureBuilder<List<OrderItem>?>(
-                        future: FoodOrderController().getOrder(widget.id),
-                        builder: (context, snapshot) {
-                          if (snapshot.data != null) {
-                            if (snapshot.data!.isNotEmpty) {
-                              List<OrderItem> data = snapshot.data!;
-                              return ListView.separated(
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    OrderItem item = data[index];
-                                    List<String?> addExtra = [];
-                                    for (OrderItemAddon orderItemAddon
-                                        in item.orderItemAddons) {
-                                      addExtra.add(orderItemAddon.addOns.title);
-                                    }
-                                    List<String?> noAddons = ["No Addons!!"];
-                                    return OrderListTile(
-                                        id: index,
-                                        sn: index + 1,
-                                        status: item.status,
-                                        subtitle: item.items.description,
-                                        title: item.items.title,
-                                        variant: item.variants.title,
-                                        addOns: addExtra.isNotEmpty
-                                            ? addExtra
-                                            : noAddons,
-                                        quantity: item.quantity,
-                                        price: item.items.currentPrice,
-                                        onStatusChange: (value) {});
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: 8.w,
-                                    );
-                                  },
-                                  itemCount: data.length);
-                            } else {
-                              return Center(
-                                  child: Text(
-                                'Select Your Orders',
-                                style: TextStyle(fontSize: 8.sp),
-                              ));
-                            }
-                          } else if (snapshot.hasError) {
-                            return Center(
-                                child: Text(
-                              'Table is Vacant!!',
-                              style: TextStyle(fontSize: 8.sp),
-                            ));
-                          }
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }),
-                    // child: Consumer<FoodOrderProvider>(
-                    //   builder: (context, provider, child) => ListView.separated(
-                    //       shrinkWrap: true,
-                    //       itemBuilder: (context, index) {
-                    //         FoodItem item = provider.mainFoodList[index];
-                    //         return OrderListTile(
-                    //           id: index,
-                    //           sn: index + 1,
-                    //           status: item.state,
-                    //           subtitle: item.description,
-                    //           title: item.title,
-                    //           price: item.currentPrice,
-                    //           onStatusChange: (value) =>
-                    //               provider.updateFoodItemState(index, value),
-                    //         );
-                    //       },
-                    //       separatorBuilder: (context, index) {
-                    //         return SizedBox(
-                    //           height: 8.w,
-                    //         );
-                    //       },
-                    //       itemCount: provider.mainFoodList.length),
-                    // ),
-                  ),
-                ),
-                SizedBox(
-                  width: 15.h,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 330,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            FutureBuilder<Data?>(
+                future: FoodOrderController().getOrder(widget.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.data != null) {
+                    Data data = snapshot.data!;
+                    List<OrderItem> itemsList = [];
+                    for (OrderItem item in data.orderItems!) {
+                      itemsList.add(item);
+                    }
+                    return Row(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Subtotal',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.200.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
+                        FoodOrderList(data: itemsList),
+                        SizedBox(
+                          width: 15.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Add on',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Taxable Amount',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'VAT',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Service Tax',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Grand Total',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              'Rs.200.00',
-                              style: TextStyle(
-                                  fontSize: 6.sp, fontWeight: FontWeight.w300),
-                            )
-                          ],
-                        ),
-                        const Divider(),
+                        Statistic(
+                          data: data,
+                        )
                       ],
-                    ),
-                  ),
-                )
-              ],
-            )
+                    );
+                  }
+                  return Center(
+                      child: Text(
+                    'Table is Vacant!!',
+                    style: TextStyle(fontSize: 8.sp),
+                  ));
+                })
           ],
         ),
       ),
     );
   }
 }
+
+
+
+
