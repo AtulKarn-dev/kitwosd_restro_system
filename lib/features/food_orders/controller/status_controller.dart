@@ -1,23 +1,27 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:kitwosd_restro_system/error/exceptions.dart';
 import 'package:kitwosd_restro_system/error/http_exceptions.dart';
-import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/status_response.dart';
 import 'package:kitwosd_restro_system/network/client_info.dart';
 
-class FoodOrderController {
-  Future<Data?> getOrder(int id) async {
+class StatusController {
+  Future<StatusResponse?> getStatus(String data, int id) async {
     Response<String>? response;
     try {
+      debugPrint(data);
       Dio dio = await getDioWithToken();
+      // var formData = FormData.fromMap(map);
+      // String data = json.encode(map);
 
-      response = await dio.get("get-order/$id");
+      // dio.options.headers['content_type'] = 'multipart/form-data';
+      response = await dio.post("update-item-status/$id", data: data);
       if (response.statusCode == 200) {
-        GetOrderResponse getOrderResponse =
-            getOrderResponseFromJson(response.data!);
-       
-        return getOrderResponse.data;
+        StatusResponse statusResponse = statusResponseFromJson(response.data!);
+        debugPrint(response.data);
+        return statusResponse;
       } else {
         return null;
       }

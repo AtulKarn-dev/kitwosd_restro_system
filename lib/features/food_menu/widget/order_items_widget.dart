@@ -18,15 +18,19 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: FutureBuilder<List<OrderItem>>(
+        child: FutureBuilder<Data?>(
       future: FoodOrderController().getOrder(widget.id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<OrderItem> data = snapshot.data!;
+          Data data = snapshot.data!;
+          List<OrderItem> itemList = [];
+          for (OrderItem orderItem in data.orderItems!) {
+            itemList.add(orderItem);
+          }
           return ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                OrderItem item = data[index];
+                OrderItem item = itemList[index];
                 Widget? quantity() {
                   return Text(
                     'Quantity: ${item.quantity}',
@@ -49,7 +53,7 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
                   height: 4.w,
                 );
               },
-              itemCount: data.length);
+              itemCount: itemList.length);
         } else {
           return const Center(child: CircularProgressIndicator());
         }

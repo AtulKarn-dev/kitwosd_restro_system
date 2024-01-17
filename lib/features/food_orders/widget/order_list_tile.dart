@@ -11,6 +11,7 @@ class OrderListTile extends StatefulWidget {
   OrderListTile(
       {super.key,
       required this.id,
+      required this.orderId,
       required this.sn,
       required this.status,
       required this.subtitle,
@@ -22,6 +23,7 @@ class OrderListTile extends StatefulWidget {
       this.onStatusChange});
 
   final int id;
+  final int orderId;
   final int sn;
   final String title;
   final String subtitle;
@@ -106,6 +108,7 @@ class _OrderListTileState extends State<OrderListTile> {
               height: 1.w,
             ),
             OrderStatus(
+              id: widget.orderId,
               status: widget.status,
               onStatusChange: (value) => widget.onStatusChange?.call(value),
             )
