@@ -6,15 +6,15 @@ import 'package:kitwosd_restro_system/features/food_orders/controller/get_order_
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/features/provider/item_count_provider.dart';
 
-class OrderItemsWidget extends StatefulWidget {
+class OrderItemsStatus extends StatefulWidget {
   final int id;
-  const OrderItemsWidget({super.key, required this.id});
+  const OrderItemsStatus({super.key, required this.id});
 
   @override
-  State<OrderItemsWidget> createState() => _OrderItemsWidgetState();
+  State<OrderItemsStatus> createState() => _OrderItemsStatusState();
 }
 
-class _OrderItemsWidgetState extends State<OrderItemsWidget> {
+class _OrderItemsStatusState extends State<OrderItemsStatus> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
