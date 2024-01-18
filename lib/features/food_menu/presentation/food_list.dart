@@ -16,7 +16,7 @@ class _FoodListState extends State<FoodList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: isTablet ?  FoodListTab(id: widget.id,) : const FoodListMobile(),
+        child: isTablet ?  FoodListTab(tableId: widget.id,) : const FoodListMobile(),
       ),
     );
   }

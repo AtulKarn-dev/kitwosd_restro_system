@@ -8,9 +8,9 @@ import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart
 import 'package:provider/provider.dart';
 
 class FoodListTab extends StatefulWidget {
-  final int id;
+  final int tableId;
   const FoodListTab({
-    super.key,required this.id
+    super.key,required this.tableId
   });
 
   @override
@@ -38,6 +38,7 @@ class _FoodListTabState extends State<FoodListTab> {
       builder: (context, provider, child) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -172,7 +173,7 @@ class _FoodListTabState extends State<FoodListTab> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<String> data = snapshot.data!;
-                          return MenuTabBarWidget(categories: data,id: widget.id,);
+                          return MenuTabBarWidget(categories: data,tableId: widget.tableId,);
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());
