@@ -14,11 +14,17 @@ class FoodItemDialogWidget extends StatefulWidget {
   const FoodItemDialogWidget(
       {super.key,
       required this.foodId,
+      required this.itemId,
+      required this.currentPrice,
       required this.isSearching,
-      required this.provider});
+      required this.provider,
+      required this.tableId});
 
   final int foodId;
+  final int tableId;
+  final int itemId;
   final bool isSearching;
+  final double currentPrice;
   final FoodOrderProvider provider;
 
   @override
@@ -98,13 +104,13 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                   onPressed: () async {
                     await AddItemController().getItem(
                         addItemRequestToJson(AddItemRequest(
-                            itemId: 1,
+                            itemId: widget.itemId,
                             variantId: 69,
                             status: 'pending',
                             quantity: 2,
                             price: 300,
                             addons: [1, 10])),
-                        13);
+                        widget.tableId);
 
                     if (!mounted) return;
                     Navigator.pop(context);

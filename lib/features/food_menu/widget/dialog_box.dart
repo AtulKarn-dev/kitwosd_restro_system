@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_item_dialog.dart';
 import 'package:provider/provider.dart';
 
-Future dialogBox(BuildContext context, int id, bool isSearching) {
+Future dialogBox(BuildContext context, int id, bool isSearching,int tableId, double currentPrice,
+                int itemId,List<int>? addOns) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -25,6 +26,9 @@ Future dialogBox(BuildContext context, int id, bool isSearching) {
         ],
       ),
       content: FoodItemDialogWidget(
+        itemId: itemId,
+        currentPrice: currentPrice,
+        tableId: tableId,
         foodId: id,
         isSearching: isSearching,
         provider: context.read(),
