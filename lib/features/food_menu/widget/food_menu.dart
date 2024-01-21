@@ -96,7 +96,7 @@ class FoodMenuState extends State<FoodMenu> {
                         child: TextButton(
                             onPressed: () {
                               dialogBox(context, id, widget.isSearching,widget.tableId!,
-                              double.parse(foodItem.currentPrice),foodItem.id,[]);
+                              double.parse(foodItem.currentPrice),foodItem.id,);
                             },
                             child: Text(
                               'Add Item',

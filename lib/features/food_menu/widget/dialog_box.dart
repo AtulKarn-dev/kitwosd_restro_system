@@ -3,7 +3,7 @@ import 'package:kitwosd_restro_system/features/food_menu/widget/food_item_dialog
 import 'package:provider/provider.dart';
 
 Future dialogBox(BuildContext context, int id, bool isSearching,int tableId, double currentPrice,
-                int itemId,List<int>? addOns) {
+                int itemId,) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(

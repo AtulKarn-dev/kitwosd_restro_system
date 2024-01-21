@@ -1,40 +1,48 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class AddOnsWidget extends StatefulWidget {
-  final String title;
-  final String price;
-  late bool selectedValue;
-  AddOnsWidget(
-      {super.key,
-      required this.title,
-      required this.price,
-      required this.selectedValue});
+  final Addon addOns;
+  final Function(int?) onTap;
+  AddOnsWidget({
+    super.key,
+    required this.addOns,
+    required this.onTap,
+  });
 
   @override
   State<AddOnsWidget> createState() => _AddOnsWidgetState();
 }
 
 class _AddOnsWidgetState extends State<AddOnsWidget> {
+  bool isAddonSelected = false;
+
   @override
   Widget build(BuildContext context) {
+    Addon addOns = widget.addOns;
+
     return isTablet
         ? CheckboxListTile(
             contentPadding: EdgeInsets.zero,
             activeColor: const Color(0xffeea734),
             side: const BorderSide(color: Color(0xffeea734)),
-            value: widget.selectedValue,
+            value: isAddonSelected,
             onChanged: (newValue) {
               setState(() {
-                widget.selectedValue = newValue!;
+                isAddonSelected = newValue!;
+                widget.onTap(isAddonSelected ? addOns.id : null);
               });
             },
             title: Text(
-              widget.title,
+              addOns.title,
               style: TextStyle(fontSize: 5.sp),
             ),
-            subtitle: Text('(+Rs.${widget.price})',
+            subtitle: Text('(+Rs.${addOns.currentPrice})',
                 style: const TextStyle(
                     color: Color(0xffeea734), fontWeight: FontWeight.bold)),
           )
@@ -42,20 +50,21 @@ class _AddOnsWidgetState extends State<AddOnsWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.title,
+                addOns.title,
                 style: TextStyle(fontSize: 12.sp),
               ),
               Text(
-                '(+Rs.${widget.price})',
+                '(+Rs.${addOns.currentPrice})',
                 style: const TextStyle(color: Color(0xffeea734)),
               ),
               Checkbox(
                 side: const BorderSide(color: Color(0xffeea734)),
                 activeColor: const Color(0xffeea734),
-                value: widget.selectedValue,
+                value: isAddonSelected,
                 onChanged: (newValue) {
                   setState(() {
-                    widget.selectedValue = newValue!;
+                    isAddonSelected = newValue!;
+                    widget.onTap(isAddonSelected ? addOns.id : null);
                   });
                 },
               )

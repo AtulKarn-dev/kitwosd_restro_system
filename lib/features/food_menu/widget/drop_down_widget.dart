@@ -8,7 +8,12 @@ import 'package:provider/provider.dart';
 class DropdownWidget extends StatefulWidget {
   int selectedValue;
   final List<Addon> data;
-  DropdownWidget({super.key, required this.selectedValue, required this.data});
+  DropdownWidget(
+      {super.key,
+      required this.selectedValue,
+      required this.data,
+      required this.onTap});
+  final Function(int?) onTap;
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
@@ -27,7 +32,8 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           onChanged: (value) {
             setState(() {
               widget.selectedValue = value!;
-              context.read<FoodOrderProvider>().getVariant();
+              widget.onTap(value);
+              // context.read<FoodOrderProvider>().getVariant();
             });
           }),
     );

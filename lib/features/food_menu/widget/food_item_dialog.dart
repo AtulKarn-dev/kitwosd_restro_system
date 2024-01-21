@@ -34,16 +34,23 @@ class FoodItemDialogWidget extends StatefulWidget {
 class _FoodItemDialogState extends State<FoodItemDialogWidget> {
   @override
   Widget build(BuildContext context) {
+    VariantWidget variantWidget = VariantWidget(
+        foodId: widget.foodId,
+        isSearching: widget.isSearching,
+        provider: widget.provider);
+
+    AddOnsList addOnsList = AddOnsList(
+        foodId: widget.foodId,
+        isSearching: widget.isSearching,
+        provider: widget.provider);
+
     return SizedBox(
       height: isTablet ? 140.w : 320.w,
       width: isTablet ? 120.w : 250.w,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          VariantWidget(
-              foodId: widget.foodId,
-              isSearching: widget.isSearching,
-              provider: widget.provider),
+          variantWidget,
           SizedBox(
             height: 3.w,
           ),
@@ -56,10 +63,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
             style: TextStyle(
                 fontSize: isTablet ? 5.sp : 12.sp, color: Colors.black),
           ),
-          AddOnsList(
-              foodId: widget.foodId,
-              isSearching: widget.isSearching,
-              provider: widget.provider),
+          addOnsList,
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,11 +109,11 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                     await AddItemController().getItem(
                         addItemRequestToJson(AddItemRequest(
                             itemId: widget.itemId,
-                            variantId: 69,
+                            variantId: variantWidget.selectedVariant!,
                             status: 'pending',
                             quantity: 2,
                             price: 300,
-                            addons: [1, 10])),
+                            addons: addOnsList.selectedIds)),
                         widget.tableId);
 
                     if (!mounted) return;
