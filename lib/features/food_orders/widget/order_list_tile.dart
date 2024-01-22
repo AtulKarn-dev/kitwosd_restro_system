@@ -87,7 +87,7 @@ class _OrderListTileState extends State<OrderListTile> {
                         style: TextStyle(
                             fontSize: 4.sp, fontWeight: FontWeight.bold),
                       ),
-                      Text('Add Ons: ${widget.addOns.join('/')}',
+                      Text('Add Ons: ${widget.addOns.join(',')}',
                           style: TextStyle(
                               fontSize: 4.sp, fontWeight: FontWeight.bold))
                     ],
