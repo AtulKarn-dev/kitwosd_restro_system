@@ -42,6 +42,8 @@ class _OrderItemsStatusState extends State<OrderItemsStatus> {
                 }
 
                 return OrderStatusTile(
+                    itemId: item.id,
+                    tableId: widget.id,
                     sn: index + 1,
                     title: item.items.title,
                     state: item.status,
