@@ -1,15 +1,13 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class AddOnsWidget extends StatefulWidget {
   final Addon addOns;
-  final Function(int?) onTap;
-  AddOnsWidget({
+  final Function(int?,double?) onTap;
+  const AddOnsWidget({
     super.key,
     required this.addOns,
     required this.onTap,
@@ -35,7 +33,7 @@ class _AddOnsWidgetState extends State<AddOnsWidget> {
             onChanged: (newValue) {
               setState(() {
                 isAddonSelected = newValue!;
-                widget.onTap(isAddonSelected ? addOns.id : null);
+                widget.onTap(isAddonSelected ? addOns.id : null, isAddonSelected? double.parse(addOns.currentPrice) : null);
               });
             },
             title: Text(
@@ -64,7 +62,7 @@ class _AddOnsWidgetState extends State<AddOnsWidget> {
                 onChanged: (newValue) {
                   setState(() {
                     isAddonSelected = newValue!;
-                    widget.onTap(isAddonSelected ? addOns.id : null);
+                    widget.onTap(isAddonSelected ? addOns.id : null, isAddonSelected? double.parse(addOns.currentPrice) : null);
                   });
                 },
               )

@@ -6,8 +6,6 @@ import 'package:kitwosd_restro_system/features/food_menu/widget/addons_list.dart
 import 'package:kitwosd_restro_system/features/food_menu/widget/quantity_widget.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/variant_widget.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
-import 'package:kitwosd_restro_system/features/table_screen/controller/table_room_controller.dart';
-import 'package:kitwosd_restro_system/features/table_screen/response/table_room_response.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class FoodItemDialogWidget extends StatefulWidget {
@@ -32,6 +30,7 @@ class FoodItemDialogWidget extends StatefulWidget {
 }
 
 class _FoodItemDialogState extends State<FoodItemDialogWidget> {
+  int? itemCount;
   @override
   Widget build(BuildContext context) {
     VariantWidget variantWidget = VariantWidget(
@@ -54,7 +53,9 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
           SizedBox(
             height: 3.w,
           ),
-          const QuantityWidget(),
+          QuantityWidget(
+            onTap: (count) => itemCount = count,
+          ),
           SizedBox(
             height: 10.h,
           ),
@@ -111,8 +112,9 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                             itemId: widget.itemId,
                             variantId: variantWidget.selectedVariant!,
                             status: 'pending',
-                            quantity: 2,
-                            price: 300,
+                            quantity: itemCount ?? 1,
+                            price: totalPrice(variantWidget.variantPrice!,
+                                addOnsList.selectedPrice),
                             addons: addOnsList.selectedIds)),
                         widget.tableId);
 
@@ -138,5 +140,16 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
         ],
       ),
     );
+  }
+
+  double totalPrice(double variantPrice, List<double> addOnsPrice) {
+    double extraPrice = 0;
+    var sumPrice = 0.0;
+    for (double price in addOnsPrice) {
+      extraPrice = extraPrice + price;
+    }
+    sumPrice =
+        (widget.currentPrice + variantPrice + extraPrice) * (itemCount ?? 1);
+    return sumPrice;
   }
 }

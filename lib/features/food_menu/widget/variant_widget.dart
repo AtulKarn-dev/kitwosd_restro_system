@@ -11,8 +11,9 @@ class VariantWidget extends StatefulWidget {
   final bool isSearching;
   final FoodOrderProvider provider;
   int? selectedVariant;
+  double? variantPrice;
 
-   VariantWidget(
+  VariantWidget(
       {super.key,
       required this.foodId,
       required this.isSearching,
@@ -47,20 +48,27 @@ class _VariantWidgetState extends State<VariantWidget> {
                 return const Text('No Variants Found!');
               } else {
                 int selectedValue = data[0].id;
+                widget.selectedVariant = selectedValue;
+                String currentPrice = data[0].currentPrice;
+                widget.variantPrice = double.parse(currentPrice);
                 return Container(
-                    width: 85.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(6)),
-                    child: Center(
-                      child: DropdownWidget(
-                        selectedValue: selectedValue,
-                        onTap: (variantId)=> widget.selectedVariant = variantId,
-                        data: data,
-                      ),
-                    ));
+                  width: 85.w,
+                  height: 40.h,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(color: Colors.grey, width: 2),
+                      borderRadius: BorderRadius.circular(6)),
+                  child: Center(
+                    child: DropdownWidget(
+                      selectedValue: selectedValue,
+                      onTap: (variantId, variantPrice) {
+                        widget.selectedVariant = variantId;
+                        widget.variantPrice = variantPrice;
+                      },
+                      data: data,
+                    ),
+                  ),
+                );
               }
             } else {
               return const Center(child: CircularProgressIndicator());

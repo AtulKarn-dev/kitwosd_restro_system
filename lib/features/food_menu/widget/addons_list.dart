@@ -14,6 +14,7 @@ class AddOnsList extends StatefulWidget {
   final bool isSearching;
   final FoodOrderProvider provider;
   List<int> selectedIds = [];
+  List<double> selectedPrice = [];
 
   @override
   State<AddOnsList> createState() => _AddOnsListState();
@@ -37,11 +38,13 @@ class _AddOnsListState extends State<AddOnsList> {
             var addOns = data[index];
             return AddOnsWidget(
               addOns: addOns,
-              onTap: (addOnsId) {
-                if (addOnsId == addOns.id) {
+              onTap: (addOnsId, addOnsPrice) {
+                if (addOnsId == addOns.id && addOnsPrice == double.parse(addOns.currentPrice)) {
                   widget.selectedIds.add(addOns.id);
+                  widget.selectedPrice.add(double.parse(addOns.currentPrice));
                 } else {
                   widget.selectedIds.remove(addOns.id);
+                  widget.selectedPrice.remove(double.parse(addOns.currentPrice));
                 }
               },
             );

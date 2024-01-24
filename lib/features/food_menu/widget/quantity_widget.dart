@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class QuantityWidget extends StatefulWidget {
-  const QuantityWidget({super.key});
+  final Function(int) onTap;
+  const QuantityWidget({super.key, required this.onTap});
 
   @override
   State<QuantityWidget> createState() => _QuantityWidgetState();
@@ -29,6 +30,7 @@ class _QuantityWidgetState extends State<QuantityWidget> {
                       setState(() {
                         itemCount--;
                       });
+                      widget.onTap(itemCount);
                     },
                     icon: Icon(
                       Icons.remove,
@@ -58,6 +60,7 @@ class _QuantityWidgetState extends State<QuantityWidget> {
                   setState(() {
                     itemCount++;
                   });
+                  widget.onTap(itemCount);
                 },
                 icon: Icon(
                   Icons.add,

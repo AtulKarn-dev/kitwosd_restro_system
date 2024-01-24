@@ -13,7 +13,7 @@ class AddItemRequest {
     int variantId;
     String status;
     int quantity;
-    int price;
+    double price;
     List<int> addons;
 
     AddItemRequest({

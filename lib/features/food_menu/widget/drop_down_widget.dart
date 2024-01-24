@@ -13,7 +13,7 @@ class DropdownWidget extends StatefulWidget {
       required this.selectedValue,
       required this.data,
       required this.onTap});
-  final Function(int?) onTap;
+  final Function(int?, double?) onTap;
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
@@ -32,25 +32,27 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           onChanged: (value) {
             setState(() {
               widget.selectedValue = value!;
-              widget.onTap(value);
               // context.read<FoodOrderProvider>().getVariant();
             });
           }),
     );
   }
-}
 
-List<DropdownMenuItem<int>>? variants(List<Addon> variantItems) {
-  List<DropdownMenuItem<int>> variants = [];
-  for (Addon items in variantItems) {
-    variants.add(DropdownMenuItem(
-      value: items.id,
-      child: Text(
-        '${items.title}:  Rs. ${items.currentPrice}',
-        style: TextStyle(
-            fontSize: isTablet ? 5.sp : 10.sp, fontWeight: FontWeight.w600),
-      ),
-    ));
+  List<DropdownMenuItem<int>>? variants(List<Addon> variantItems) {
+    List<DropdownMenuItem<int>> variants = [];
+    for (Addon items in variantItems) {
+      variants.add(DropdownMenuItem(
+        value: items.id,
+        onTap: () {
+          widget.onTap(items.id, double.parse(items.currentPrice));
+        } ,
+        child: Text(
+          '${items.title}:  Rs. ${items.currentPrice}',
+          style: TextStyle(
+              fontSize: isTablet ? 5.sp : 10.sp, fontWeight: FontWeight.w600),
+        ),
+      ));
+    }
+    return variants;
   }
-  return variants;
 }
