@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_orders/api/response/checkout_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
-
+import 'package:kitwosd_restro_system/features/food_orders/controller/cancel_controller.dart';
+import 'package:kitwosd_restro_system/features/food_orders/controller/checkout_controller.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/table_view.dart';
+import 'package:kitwosd_restro_system/widget/snackbar.dart';
 
 class Statistic extends StatelessWidget {
   final Data data;
@@ -84,9 +87,62 @@ class Statistic extends StatelessWidget {
               ],
             ),
             const Divider(),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                myButton(
+                  text: 'Checkout',
+                  color: const Color(0xffeea734),
+                  onTap: () async {
+                    var res = await CheckoutController().getCheckout(data.id);
+                    if (!context.mounted) return;
+                    if (res is CheckOutResponse) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TableView(),
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(showSnackBar(
+                          message:
+                              'Cannot Check out: not all items are delivered.',
+                          isError: true));
+                    }
+                  },
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                myButton(
+                  text: 'Cancel',
+                  color: Colors.red[400],
+                  onTap: () async {
+                    await CancelController().getCancel(data.id);
+                    if (!context.mounted) return;
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const TableView(),
+                    ));
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  ElevatedButton myButton(
+      {Color? color, required String text, Function()? onTap}) {
+    return ElevatedButton(
+        style: ButtonStyle(
+            fixedSize: const MaterialStatePropertyAll(Size(150, 50)),
+            backgroundColor: MaterialStatePropertyAll(color)),
+        onPressed: onTap,
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ));
   }
 }
