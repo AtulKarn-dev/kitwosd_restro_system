@@ -283,7 +283,7 @@ class OrderItemAddon {
         addOnsId: json["add_ons_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        addOns: json["add_ons"] != null ? Variants.fromJson(json["add_ons"]) : Variants.fromJson(json["addons"]),
+        addOns: Variants.fromJson(json["addons"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -292,7 +292,7 @@ class OrderItemAddon {
         "add_ons_id": addOnsId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "add_ons": addOns.toJson(),
+        "addons": addOns.toJson(),
       };
 }
 
