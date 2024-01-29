@@ -22,125 +22,20 @@ class _OrderItemsStatusState extends State<OrderItemsStatus> {
         child: FutureBuilder<Data?>(
       future: FoodOrderController().getOrder(widget.id),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Data data = snapshot.data!;
-          List<OrderItem> itemList = [];
-          for (OrderItem orderItem in data.orderItems!) {
-            itemList.add(orderItem);
-          }
-          return ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                OrderItem item = itemList[index];
-                Widget? quantity() {
-                  return Text(
-                    'Quantity: ${item.quantity}',
-                    style: TextStyle(
-                        fontSize: 4.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff868686)),
-                  );
-                }
-
-                return Dismissible(
-                  confirmDismiss: (DismissDirection direction) async {
-                    return await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("CONFIRM"),
-                          content: const Text(
-                              "Are you sure you wish to delete this item?"),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () async {
-                                  await DeleteItemController().getItem(
-                                      deleteRequestToJson(
-                                          DeleteRequest(tableId: widget.id)),
-                                      item.id);
-                                  if (!mounted) return;
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: const Text("DELETE")),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text("CANCEL"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  onDismissed: (direction) {
-                    setState(() {
-                      itemList.removeAt(index);
-                    });
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(showSnackBar(message: 'Item deleted!!'));
-                  },
-                  direction: deletePending(item.status),
-                  key: UniqueKey(),
-                  child: OrderStatusTile(
-                      itemId: item.id,
-                      tableId: widget.id,
-                      sn: index + 1,
-                      title: item.items.title,
-                      state: item.status,
-                      index: index,
-                      subtitle: quantity()),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: 4.w,
-                );
-              },
-              itemCount: itemList.length);
-        } else {
-          return const Center(child: CircularProgressIndicator());
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              Data data = snapshot.data!;
+              List<OrderItem> itemList = data.orderItems!;
+              return generateListView(itemList);
+            } else {
+              return const Center(child: Text("No Data"));
+            }
+          default:
+            return const Center(child: CircularProgressIndicator());
         }
       },
-    )
-        // Consumer<FoodOrderProvider>(
-        //   builder: (context, provider, child) {
-        //     return ListView.separated(
-        //         shrinkWrap: true,
-        //         itemBuilder: (context, index) {
-        //           FoodItem item = provider.mainFoodList[index];
-
-        //           void removetile() {
-        //             setState(() {
-        //               provider.deleteAddedOrderItem(index);
-        //             });
-        //           }
-
-        //           Widget? quantity() {
-        //             return Text(
-        //               'Quantity: ${context.watch<ItemCountProvider>().itemCount()}',
-        //               style: TextStyle(
-        //                   fontSize: 4.sp,
-        //                   fontWeight: FontWeight.bold,
-        //                   color: const Color(0xff868686)),
-        //             );
-        //           }
-
-        //           return OrderStatusTile(
-        //             sn: index + 1,
-        //             title: item.title,
-        //             index: index,
-        //             removeOrder: removetile,
-        //             subtitle: quantity(),
-        //           );
-        //         },
-        //         separatorBuilder: (context, index) {
-        //           return SizedBox(
-        //             height: 4.w,
-        //           );
-        //         },
-        //         itemCount: provider.mainFoodList.length);
-        //   },
-        // )
-        );
+    ));
   }
 
   DismissDirection deletePending(FoodItemState state) {
@@ -149,5 +44,76 @@ class _OrderItemsStatusState extends State<OrderItemsStatus> {
     } else {
       return DismissDirection.none;
     }
+  }
+
+  Widget generateListView(List<OrderItem> itemList) {
+    return ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          OrderItem item = itemList[index];
+          Widget? quantity() {
+            return Text(
+              'Quantity: ${item.quantity}',
+              style: TextStyle(
+                  fontSize: 4.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xff868686)),
+            );
+          }
+
+          return Dismissible(
+            confirmDismiss: (DismissDirection direction) async {
+              return await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("CONFIRM"),
+                    content: const Text(
+                        "Are you sure you wish to delete this item?"),
+                    actions: <Widget>[
+                      TextButton(
+                          onPressed: () async {
+                            await DeleteItemController().getItem(
+                                deleteRequestToJson(
+                                    DeleteRequest(tableId: widget.id)),
+                                item.id);
+                            if (!mounted) return;
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text("DELETE")),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text("CANCEL"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            onDismissed: (direction) {
+              setState(() {
+                itemList.removeAt(index);
+              });
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(showSnackBar(message: 'Item deleted!!'));
+            },
+            direction: deletePending(item.status),
+            key: UniqueKey(),
+            child: OrderStatusTile(
+                itemId: item.id,
+                tableId: widget.id,
+                sn: index + 1,
+                title: item.items.title,
+                state: item.status,
+                index: index,
+                subtitle: quantity()),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(
+            height: 4.w,
+          );
+        },
+        itemCount: itemList.length);
   }
 }

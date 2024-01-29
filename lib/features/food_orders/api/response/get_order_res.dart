@@ -11,7 +11,7 @@ String getOrderResponseToJson(GetOrderResponse data) =>
     json.encode(data.toJson());
 
 class GetOrderResponse {
-  Data data;
+  Data? data;
 
   GetOrderResponse({
     required this.data,
@@ -23,7 +23,7 @@ class GetOrderResponse {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
+        "data": data?.toJson(),
       };
 }
 
@@ -283,7 +283,7 @@ class OrderItemAddon {
         addOnsId: json["add_ons_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        addOns: Variants.fromJson(json["add_ons"]),
+        addOns: json["add_ons"] != null ? Variants.fromJson(json["add_ons"]) : Variants.fromJson(json["addons"]),
       );
 
   Map<String, dynamic> toJson() => {
