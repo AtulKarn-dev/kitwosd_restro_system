@@ -16,11 +16,9 @@ class FoodOrderController {
       if (response.statusCode == 200) {
         GetOrderResponse getOrderResponse =
             getOrderResponseFromJson(response.data!);
-       
         return getOrderResponse.data;
-      } else {
-        return null;
       }
+      return null;
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         Map? r = json.decode(e.response!.data!);

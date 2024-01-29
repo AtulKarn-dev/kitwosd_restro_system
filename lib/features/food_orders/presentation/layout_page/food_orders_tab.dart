@@ -99,8 +99,8 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (snapshot.data != null) {
-                    Data data = snapshot.data!;
+                  if (snapshot.hasData) {
+                    var data = snapshot.data!;
                     List<OrderItem> itemsList = [];
                     for (OrderItem item in data.orderItems!) {
                       itemsList.add(item);
@@ -129,7 +129,3 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
     );
   }
 }
-
-
-
-

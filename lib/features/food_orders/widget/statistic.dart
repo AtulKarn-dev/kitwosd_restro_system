@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/error/http_exceptions.dart';
 import 'package:kitwosd_restro_system/features/food_orders/api/response/checkout_response.dart';
 import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/cancel_controller.dart';
@@ -97,17 +98,19 @@ class Statistic extends StatelessWidget {
                   text: 'Checkout',
                   color: const Color(0xffeea734),
                   onTap: () async {
-                    var res = await CheckoutController().getCheckout(data.id);
-                    if (!context.mounted) return;
-                    if (res is CheckOutResponse) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TableView(),
-                      ));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(showSnackBar(
-                          message:
-                              'Cannot Check out: not all items are delivered.',
-                          isError: true));
+                    try {
+                      var res = await CheckoutController().getCheckout(data.id);
+                      if (!context.mounted) return;
+                      if (res is CheckOutResponse) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const TableView(),
+                        ));
+                      }
+                    } catch (e) {
+                      if (e is ValidationException) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            showSnackBar(isError: true, message: e.message));
+                      }
                     }
                   },
                 ),
@@ -115,16 +118,22 @@ class Statistic extends StatelessWidget {
                   width: 10.w,
                 ),
                 myButton(
-                  text: 'Cancel',
-                  color: Colors.red[400],
-                  onTap: () async {
-                    await CancelController().getCancel(data.id);
-                    if (!context.mounted) return;
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const TableView(),
-                    ));
-                  },
-                )
+                    text: 'Cancel',
+                    color: Colors.red[400],
+                    onTap: () async {
+                      try {
+                        await CancelController().getCancel(data.id);
+                        if (!context.mounted) return;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const TableView(),
+                        ));
+                      } catch (e) {
+                        if (e is ValidationException) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              showSnackBar(isError: true, message: e.message));
+                        }
+                      }
+                    })
               ],
             ),
           ],

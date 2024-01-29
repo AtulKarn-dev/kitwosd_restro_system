@@ -20,10 +20,10 @@ class ApiController {
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         Map? r = json.decode(e.response!.data!);
-        throw ValidationException(r, r![r.keys.first.toString()]);
-      } else if (e.response!.statusCode.toString() == "401") {
-        Map? r = json.decode(e.response!.data!);
         throw ValidationException(r!['message'], r['success']);
+      } else if (e.response!.statusCode == 500) {
+        Map? r = json.decode(e.response!.data!);
+       throw ValidationException(r, r![r.keys.first]);
       } else {
         throw ServerException().gotException(e.message!);
       }

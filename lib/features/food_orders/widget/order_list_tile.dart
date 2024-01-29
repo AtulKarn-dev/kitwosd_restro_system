@@ -78,20 +78,18 @@ class _OrderListTileState extends State<OrderListTile> {
               WidgetSpan(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 6),
-                child: Consumer<FoodOrderProvider>(
-                  builder: (context, value, child) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Variant: ${widget.variant}',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Variant: ${widget.variant}',
+                      style: TextStyle(
+                          fontSize: 4.sp, fontWeight: FontWeight.bold),
+                    ),
+                    Text('Add Ons: ${widget.addOns.join(',')}',
                         style: TextStyle(
-                            fontSize: 4.sp, fontWeight: FontWeight.bold),
-                      ),
-                      Text('Add Ons: ${widget.addOns.join(',')}',
-                          style: TextStyle(
-                              fontSize: 4.sp, fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                            fontSize: 4.sp, fontWeight: FontWeight.bold))
+                  ],
                 ),
               ))
             ])),
