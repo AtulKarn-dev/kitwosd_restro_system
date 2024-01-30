@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:kitwosd_restro_system/error/http_exceptions.dart';
 import 'package:kitwosd_restro_system/features/login_screen/response/login_response.dart';
 import 'package:kitwosd_restro_system/features/table_screen/presentation/table_view.dart';
+import 'package:kitwosd_restro_system/network/network_info.dart';
 import 'package:kitwosd_restro_system/widget/helper/validation.dart';
 
 import '../../../../widget/snackbar.dart';
@@ -144,22 +147,34 @@ class _LoginTabetState extends State<LoginTabet> {
                     width: 400.h,
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (loginTabletKey.currentState!.validate()) {
-                          var res = await LoginController().getLogin(
-                              loginRequestToJson(LoginRequest(
-                                  email: email.text.trim(),
-                                  password: password.text.trim())));
-                          if (res is LoginResponse) {
-                            if (!mounted) return;
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const TableView()));
-                          } else {
-                            showSnackBar(
-                                message: 'Invalid Credential', isError: true);
+                        if (await NetworkInfoImpl(InternetConnectionChecker())
+                            .isConnected) {
+                          if (loginTabletKey.currentState!.validate()) {
+                            try {
+                              var res = await LoginController().getLogin(
+                                  loginRequestToJson(LoginRequest(
+                                      email: email.text.trim(),
+                                      password: password.text.trim())));
+                              if (!mounted) return;
+                              if (res is LoginResponse) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const TableView()));
+                              }
+                            } catch (e) {
+                              if (!mounted) return;
+                              if (e is ValidationException) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    showSnackBar(
+                                        message: e.message, isError: true));
+                              }
+                            }
                           }
                         } else {
-                          debugPrint('Invalid');
+                          if (!mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              showSnackBar(
+                                  message: 'No Internet', isError: true));
                         }
                       },
                       style: ButtonStyle(
@@ -186,4 +201,3 @@ class _LoginTabetState extends State<LoginTabet> {
     );
   }
 }
-

@@ -37,14 +37,13 @@ class LoginController {
       } else {
         return null;
       }
-    }
-    on DioException catch (e) {
-      if (e.response!.statusCode == 401) {
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 400) {
         Map? r = json.decode(e.response!.data!);
-        throw ValidationException(r, r![r.keys.first.toString()]);
-      } else if (e.response!.statusCode.toString() == "401") {
+        throw ValidationException(r, r!['data']);
+      } else if (e.response!.statusCode == 401) {
         Map? r = json.decode(e.response!.data!);
-        throw ValidationException(r!['message'], r['success']);
+        throw ValidationException(r, r!['message']);
       } else {
         throw ServerException().gotException(e.message!);
       }
