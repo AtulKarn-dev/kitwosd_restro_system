@@ -22,17 +22,12 @@ class _OrderItemsStatusState extends State<OrderItemsStatus> {
         child: FutureBuilder<Data?>(
       future: FoodOrderController().getOrder(widget.id),
       builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            if (snapshot.hasData) {
-              Data data = snapshot.data!;
-              List<OrderItem> itemList = data.orderItems!;
-              return generateListView(itemList);
-            } else {
-              return const Center(child: Text("No Data"));
-            }
-          default:
-            return const Center(child: CircularProgressIndicator());
+        if (snapshot.hasData) {
+          Data data = snapshot.data!;
+          List<OrderItem> itemList = data.orderItems!;
+          return generateListView(itemList);
+        } else {
+          return const Center(child: CircularProgressIndicator());
         }
       },
     ));
