@@ -55,8 +55,10 @@ class _TableState extends State<TableWidget> {
       children: [
         IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) =>  FoodOrders(id: widget.table!.id,)));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => FoodOrders(
+                        id: widget.table!.id,
+                      )));
             },
             icon: Image.asset(
               'assets/images/table-removebg-preview.png',
@@ -67,7 +69,7 @@ class _TableState extends State<TableWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-           'Table ${widget.table!.tableNumber.split(". ")[1]}' ,
+              'Table ${widget.table!.tableNumber.replaceAll(RegExp('[^0-9]'),'')}',
               style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w300),
             ),
             SizedBox(
