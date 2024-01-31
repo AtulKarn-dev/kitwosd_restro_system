@@ -157,7 +157,7 @@ class _LoginTabetState extends State<LoginTabet> {
                                       password: password.text.trim())));
                               if (!mounted) return;
                               if (res is LoginResponse) {
-                                Navigator.of(context).push(MaterialPageRoute(
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         const TableView()));
                               }

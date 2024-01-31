@@ -102,7 +102,7 @@ class Statistic extends StatelessWidget {
                       var res = await CheckoutController().getCheckout(data.id);
                       if (!context.mounted) return;
                       if (res is CheckOutResponse) {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const TableView(),
                         ));
                       }
@@ -124,7 +124,7 @@ class Statistic extends StatelessWidget {
                       try {
                         await CancelController().getCancel(data.id);
                         if (!context.mounted) return;
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const TableView(),
                         ));
                       } catch (e) {
