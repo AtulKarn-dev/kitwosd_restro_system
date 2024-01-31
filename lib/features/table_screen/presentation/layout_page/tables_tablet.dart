@@ -13,28 +13,41 @@ class Tables extends StatefulWidget {
 }
 
 class _TablesState extends State<Tables> {
+  Future<void> getData() async {
+    setState(() {
+      TableRoomController().getTables(widget.roomNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.all(12.r),
-        child: FutureBuilder<List<RoomTable>?>(
-          future: TableRoomController().getTables(widget.roomNumber),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<RoomTable>? data = snapshot.data!;
-              return GridView.count(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 50,
-                  children: List.generate(
-                      data.length,
-                      (index) => TableWidget(
-                            table: data[index],
-                          )));
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ));
+    return RefreshIndicator(
+      onRefresh: () {
+        return Future.delayed(const Duration(seconds: 1), () {
+          getData();
+        });
+      },
+      child: Padding(
+          padding: EdgeInsets.all(12.r),
+          child: FutureBuilder<List<RoomTable>?>(
+            future: TableRoomController().getTables(widget.roomNumber),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<RoomTable>? data = snapshot.data!;
+                return GridView.count(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 50,
+                    children: List.generate(
+                        data.length,
+                        (index) => TableWidget(
+                              table: data[index],
+                            )));
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          )),
+    );
   }
 }
 
@@ -69,7 +82,7 @@ class _TableState extends State<TableWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Table ${widget.table!.tableNumber.replaceAll(RegExp('[^0-9]'),'')}',
+              'Table ${widget.table!.tableNumber.replaceAll(RegExp('[^0-9]'), '')}',
               style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w300),
             ),
             SizedBox(

@@ -16,6 +16,12 @@ class FoodOrdersTab extends StatefulWidget {
 }
 
 class _FoodOrdersTabState extends State<FoodOrdersTab> {
+  Future<void> getData() async {
+    setState(() {
+      FoodOrderController().getOrder(widget.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,39 +96,51 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                 )
               ],
             ),
-            SizedBox(
-              height: 4.w,
-            ),
-            FutureBuilder<Data?>(
-                future: FoodOrderController().getOrder(widget.id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasData) {
-                    var data = snapshot.data!;
-                    List<OrderItem> itemsList = [];
-                    for (OrderItem item in data.orderItems!) {
-                      itemsList.add(item);
-                    }
-                    return Row(
-                      children: [
-                        FoodOrderList(data: itemsList),
-                        SizedBox(
-                          width: 15.h,
+            RefreshIndicator(
+              onRefresh: () {
+                return Future.delayed(const Duration(seconds: 1), () {
+                  getData();
+                });
+              },
+              child: Column(children: [
+                SizedBox(
+                  height: 4.w,
+                ),
+                FutureBuilder<Data?>(
+                    future: FoodOrderController().getOrder(widget.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasData) {
+                        var data = snapshot.data!;
+                        List<OrderItem> itemList = data.orderItems!;
+                        return Row(
+                          children: [
+                            FoodOrderList(data: itemList),
+                            SizedBox(
+                              width: 15.h,
+                            ),
+                            Statistic(
+                              data: data,
+                            )
+                          ],
+                        );
+                      }
+                      return SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: SizedBox(
+                          height: 300.h,
+                          child: Center(
+                              child: Text(
+                            'Table is Vacant!!',
+                            style: TextStyle(fontSize: 8.sp),
+                          )),
                         ),
-                        Statistic(
-                          data: data,
-                        )
-                      ],
-                    );
-                  }
-                  return Center(
-                      child: Text(
-                    'Table is Vacant!!',
-                    style: TextStyle(fontSize: 8.sp),
-                  ));
-                })
+                      );
+                    })
+              ]),
+            )
           ],
         ),
       ),

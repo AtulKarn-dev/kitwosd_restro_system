@@ -47,11 +47,14 @@ class FoodOrderList extends StatelessWidget {
     } else {
       return Expanded(
         flex: 3,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - 330,
-          child: Center(
-              child:
-                  Text('Select Your Order', style: TextStyle(fontSize: 8.sp))),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - 330,
+            child: Center(
+                child: Text('Select Your Order',
+                    style: TextStyle(fontSize: 8.sp))),
+          ),
         ),
       );
     }
