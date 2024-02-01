@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/table_screen/presentation/table_view.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/table_appbar.dart';
 import 'package:kitwosd_restro_system/widget/helper/validation.dart';
 
 import '../../../../widget/snackbar.dart';

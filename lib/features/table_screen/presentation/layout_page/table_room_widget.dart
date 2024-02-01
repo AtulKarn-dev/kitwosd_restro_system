@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/table_screen/presentation/layout_page/tables_tablet.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/layout_page/tables_grid_view.dart';
 
 class TableRoomWidget extends StatefulWidget {
   final List<int> rooms;

@@ -5,7 +5,7 @@ import 'package:kitwosd_restro_system/features/food_orders/api/response/checkout
 import 'package:kitwosd_restro_system/features/food_orders/api/response/get_order_res.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/cancel_controller.dart';
 import 'package:kitwosd_restro_system/features/food_orders/controller/checkout_controller.dart';
-import 'package:kitwosd_restro_system/features/table_screen/presentation/table_view.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/table_appbar.dart';
 import 'package:kitwosd_restro_system/widget/snackbar.dart';
 
 class Statistic extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:kitwosd_restro_system/error/http_exceptions.dart';
 import 'package:kitwosd_restro_system/features/login_screen/response/login_response.dart';
-import 'package:kitwosd_restro_system/features/table_screen/presentation/table_view.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/table_appbar.dart';
 import 'package:kitwosd_restro_system/network/network_info.dart';
 import 'package:kitwosd_restro_system/widget/helper/validation.dart';
 
