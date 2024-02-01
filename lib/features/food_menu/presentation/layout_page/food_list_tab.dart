@@ -8,9 +8,9 @@ import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart
 import 'package:provider/provider.dart';
 
 class FoodListTab extends StatefulWidget {
-  final VoidCallback? onClose;
+  final VoidCallback onClose;
   final int tableId;
-  const FoodListTab({super.key, required this.tableId, this.onClose});
+  const FoodListTab({super.key, required this.tableId, required this.onClose});
 
   @override
   State<FoodListTab> createState() => _FoodListTabState();
@@ -50,7 +50,8 @@ class _FoodListTabState extends State<FoodListTab> {
                           width: 45.h,
                           height: 45.h,
                           alignment: Alignment.centerRight,
-                          decoration: const BoxDecoration(color: Color(0xffeea734)),
+                          decoration:
+                              const BoxDecoration(color: Color(0xffeea734)),
                           child: BackButton(
                             color: Colors.white,
                             onPressed: isTapped
@@ -63,8 +64,8 @@ class _FoodListTabState extends State<FoodListTab> {
                                     });
                                   }
                                 : () {
-                                    Navigator.of(context).pop();
-                                    widget.onClose;
+                                    Navigator.pop(context);
+                                    widget.onClose();
                                   },
                             style: ButtonStyle(
                               iconSize: MaterialStateProperty.all(25.r),
@@ -73,8 +74,8 @@ class _FoodListTabState extends State<FoodListTab> {
                       isTapped
                           ? SearchBar(
                               controller: text1,
-                              constraints:
-                                  BoxConstraints(minHeight: 45.h, maxWidth: 255.w),
+                              constraints: BoxConstraints(
+                                  minHeight: 45.h, maxWidth: 255.w),
                               shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
@@ -94,7 +95,7 @@ class _FoodListTabState extends State<FoodListTab> {
                                 } else {
                                   setState(() {
                                     iconShow = true;
-        
+
                                     provider.filterItems(value);
                                     menu = FoodMenu(
                                       mainFoodList: provider.displayList,
@@ -120,7 +121,8 @@ class _FoodListTabState extends State<FoodListTab> {
                                           icon: Icon(
                                             Icons.close,
                                             size: 24.h,
-                                            color: Colors.black.withOpacity(0.6),
+                                            color:
+                                                Colors.black.withOpacity(0.6),
                                           ))
                                     ]
                                   : null,
@@ -135,14 +137,14 @@ class _FoodListTabState extends State<FoodListTab> {
                                   iconShow = false;
                                   provider.displayList =
                                       FoodOrderProvider.showingList;
-                                  menu =
-                                      FoodMenu(mainFoodList: provider.displayList);
+                                  menu = FoodMenu(
+                                      mainFoodList: provider.displayList);
                                 });
                                 text1.clear();
                               },
                               elevation: MaterialStateProperty.all(1),
-                              constraints:
-                                  BoxConstraints(minHeight: 45.h, maxWidth: 255.w),
+                              constraints: BoxConstraints(
+                                  minHeight: 45.h, maxWidth: 255.w),
                               shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
@@ -155,7 +157,8 @@ class _FoodListTabState extends State<FoodListTab> {
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.symmetric(horizontal: 80.h)),
                               hintStyle: MaterialStateProperty.all(TextStyle(
-                                  fontSize: 6.sp, color: const Color(0xff949494))),
+                                  fontSize: 6.sp,
+                                  color: const Color(0xff949494))),
                             ),
                       Container(
                           height: 45.w,
