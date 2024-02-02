@@ -8,9 +8,9 @@ import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart
 import 'package:provider/provider.dart';
 
 class FoodListTab extends StatefulWidget {
-  final VoidCallback onClose;
+  final VoidCallback onRefresh;
   final int tableId;
-  const FoodListTab({super.key, required this.tableId, required this.onClose});
+  const FoodListTab({super.key, required this.tableId, required this.onRefresh});
 
   @override
   State<FoodListTab> createState() => _FoodListTabState();
@@ -65,7 +65,7 @@ class _FoodListTabState extends State<FoodListTab> {
                                   }
                                 : () {
                                     Navigator.pop(context);
-                                    widget.onClose();
+                                    widget.onRefresh();
                                   },
                             style: ButtonStyle(
                               iconSize: MaterialStateProperty.all(25.r),
