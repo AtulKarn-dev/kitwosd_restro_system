@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/table_screen/presentation/drawer_widget.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 import 'package:kitwosd_restro_system/features/table_screen/presentation/layout_page/get_room.dart';
 
@@ -17,7 +18,7 @@ class _TableViewState extends State<TableView> {
       appBar: AppBar(
         toolbarHeight: 100,
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           'Tables',
           style: TextStyle(
@@ -40,6 +41,7 @@ class _TableViewState extends State<TableView> {
             : null,
       ),
       body: const GetRoom(),
+      drawer: const DrawerWidget(),
     );
   }
 }
