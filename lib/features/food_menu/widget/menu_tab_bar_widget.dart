@@ -26,7 +26,6 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
     super.initState();
     tabController =
         TabController(length: widget.categories.length, vsync: this);
-    currentIndex = tabController.index;
     tabController.addListener(() {
       // Reset previous food list
       FoodOrderProvider.loadFoodList([]);
@@ -76,7 +75,6 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                       .getMenuList(widget.categories[currentIndex]),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
-                      case ConnectionState.none:
                       case ConnectionState.waiting:
                         return const Center(child: CircularProgressIndicator());
                       default:

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/add_item_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_item_dialog.dart';
 import 'package:provider/provider.dart';
 
 Future dialogBox(BuildContext context, int id, bool isSearching,int tableId, double currentPrice,
-                int itemId,) {
+                int itemId, Function(AddItemResponse) onAddItem) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -32,6 +33,7 @@ Future dialogBox(BuildContext context, int id, bool isSearching,int tableId, dou
         foodId: id,
         isSearching: isSearching,
         provider: context.read(),
+        onAddItem: (item) => onAddItem(item),
       ),
     ),
   );

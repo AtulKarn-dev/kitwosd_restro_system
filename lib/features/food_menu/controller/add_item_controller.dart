@@ -9,7 +9,7 @@ import 'package:kitwosd_restro_system/features/food_menu/response/add_item_respo
 import 'package:kitwosd_restro_system/network/client_info.dart';
 
 class AddItemController {
-  Future<AddItemResponse?> getItem(String data, int id) async {
+  Future<AddItemResponse?> addItem(String data, int id) async {
     Response<String>? response;
     try {
       debugPrint(data);

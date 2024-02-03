@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/add_item_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import '../../../widget/helper/function.dart';
 import 'dialog_box.dart';
@@ -95,8 +96,11 @@ class FoodMenuState extends State<FoodMenu> {
                         flex: 2,
                         child: TextButton(
                             onPressed: () {
-                              dialogBox(context, id, widget.isSearching,widget.tableId!,
-                              double.parse(foodItem.currentPrice),foodItem.id,);
+                              dialogBox(
+                                context, id, widget.isSearching,widget.tableId!,
+                                double.parse(foodItem.currentPrice),foodItem.id, 
+                                onAddItem
+                              );
                             },
                             child: Text(
                               'Add Item',
@@ -111,5 +115,10 @@ class FoodMenuState extends State<FoodMenu> {
                 );
               }));
     }
+
+  }
+
+  void onAddItem(AddItemResponse response) {
+    
   }
 }

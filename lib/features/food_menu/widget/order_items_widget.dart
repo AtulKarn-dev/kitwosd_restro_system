@@ -19,18 +19,23 @@ class _OrderItemsStatusState extends State<OrderItemsStatus> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: FutureBuilder<Data?>(
-      future: FoodOrderController().getOrder(widget.id),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Data data = snapshot.data!;
-          List<OrderItem> itemList = data.orderItems!;
-          return generateListView(itemList);
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    ));
+        child: 
+         itemStatus());
+  }
+
+  FutureBuilder<Data?> itemStatus() {
+    return FutureBuilder<Data?>(
+    future: FoodOrderController().getOrder(widget.id),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        Data data = snapshot.data!;
+        List<OrderItem> itemList = data.orderItems!;
+        return generateListView(itemList);
+      } else {
+        return const Center(child: CircularProgressIndicator());
+      }
+    },
+  );
   }
 
   DismissDirection deletePending(FoodItemState state) {

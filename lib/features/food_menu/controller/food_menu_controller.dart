@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:kitwosd_restro_system/error/exceptions.dart';
-import 'package:kitwosd_restro_system/error/http_exceptions.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_search_response.dart';
 import 'package:kitwosd_restro_system/network/api_controller.dart';
-import 'package:kitwosd_restro_system/network/client_info.dart';
+
 
 class FoodMenuController {
   Future<List<String>?> getMenuCategories() async {

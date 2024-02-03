@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/logout/logout_presentation/alert_dialog_box.dart';
 
-
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
 
@@ -34,6 +33,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
+                backgroundImage: ExactAssetImage(
+                    'assets/images/restro_kit-removebg-preview.png',
+                    scale: 0.5),
               ),
               currentAccountPictureSize: Size.fromRadius(70.r),
             ),

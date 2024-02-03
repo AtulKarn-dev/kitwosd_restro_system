@@ -107,7 +107,7 @@ class _FoodOrdersTabState extends State<FoodOrdersTab> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => FoodListTab(
-                            onClose: () {
+                            onRefresh: () {
                               setState(() {
                                 getData();
                               });

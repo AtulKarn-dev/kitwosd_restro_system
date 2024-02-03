@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 class FoodListTab extends StatefulWidget {
   final VoidCallback onRefresh;
   final int tableId;
-  const FoodListTab({super.key, required this.tableId, required this.onRefresh});
+  const FoodListTab(
+      {super.key, required this.tableId, required this.onRefresh});
 
   @override
   State<FoodListTab> createState() => _FoodListTabState();

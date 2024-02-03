@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/add_item_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/request/add_item_request.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/add_item_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/addons_list.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/quantity_widget.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/variant_widget.dart';
+import 'package:kitwosd_restro_system/features/provider/food_list_provider.dart';
 import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
+import 'package:provider/provider.dart';
 
 class FoodItemDialogWidget extends StatefulWidget {
   const FoodItemDialogWidget(
@@ -16,7 +19,8 @@ class FoodItemDialogWidget extends StatefulWidget {
       required this.currentPrice,
       required this.isSearching,
       required this.provider,
-      required this.tableId});
+      required this.tableId,
+      required this.onAddItem});
 
   final int foodId;
   final int tableId;
@@ -24,6 +28,7 @@ class FoodItemDialogWidget extends StatefulWidget {
   final bool isSearching;
   final double currentPrice;
   final FoodOrderProvider provider;
+  final Function(AddItemResponse) onAddItem;
 
   @override
   State<FoodItemDialogWidget> createState() => _FoodItemDialogState();
@@ -107,7 +112,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                 width: isTablet ? 40.w : 100.w,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await AddItemController().getItem(
+                    var item = await AddItemController().addItem(
                         addItemRequestToJson(AddItemRequest(
                             itemId: widget.itemId,
                             variantId: variantWidget.selectedVariant!,
@@ -118,11 +123,12 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                             addons: addOnsList.selectedIds)),
                         widget.tableId);
 
+                    if (item != null) {
+                      widget.onAddItem(item);
+                    }
+
                     if (!mounted) return;
                     Navigator.pop(context);
-
-                    // widget.provider.addItem(widget.foodId, widget.isSearching);
-                    // context.read<ItemCountProvider>().count(itemCount);
                   },
                   style: ButtonStyle(
                       backgroundColor:
