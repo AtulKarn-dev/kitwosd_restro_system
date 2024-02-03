@@ -4,7 +4,6 @@ import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_co
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/order_items_widget.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 
 class MenuTabBarWidget extends StatefulWidget {
   final int tableId;
@@ -28,7 +27,7 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
         TabController(length: widget.categories.length, vsync: this);
     tabController.addListener(() {
       // Reset previous food list
-      FoodOrderProvider.loadFoodList([]);
+      // FoodOrderProvider.loadFoodList([]);
       setState(() {
         currentIndex = tabController.index;
       });
@@ -82,7 +81,7 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                           return Text('Error: ${snapshot.error}');
                         } else {
                           List<FoodItem> data = snapshot.data!;
-                          FoodOrderProvider.loadFoodList(data);
+                          // FoodOrderProvider.loadFoodList(data);
                           return TabBarView(
                               controller: tabController,
                               children: List.generate(categories.length,

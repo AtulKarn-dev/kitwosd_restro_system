@@ -3,31 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/add_item_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/request/add_item_request.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/add_item_response.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/addons_list.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/quantity_widget.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/variant_widget.dart';
-import 'package:kitwosd_restro_system/features/provider/food_list_provider.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
-import 'package:provider/provider.dart';
 
 class FoodItemDialogWidget extends StatefulWidget {
   const FoodItemDialogWidget(
       {super.key,
-      required this.foodId,
-      required this.itemId,
-      required this.currentPrice,
-      required this.isSearching,
-      required this.provider,
+      required this.foodItem,
       required this.tableId,
       required this.onAddItem});
 
-  final int foodId;
   final int tableId;
-  final int itemId;
-  final bool isSearching;
-  final double currentPrice;
-  final FoodOrderProvider provider;
+  final FoodItem foodItem;
   final Function(AddItemResponse) onAddItem;
 
   @override
@@ -39,14 +29,12 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
   @override
   Widget build(BuildContext context) {
     VariantWidget variantWidget = VariantWidget(
-        foodId: widget.foodId,
-        isSearching: widget.isSearching,
-        provider: widget.provider);
+      foodItem: widget.foodItem,
+    );
 
     AddOnsList addOnsList = AddOnsList(
-        foodId: widget.foodId,
-        isSearching: widget.isSearching,
-        provider: widget.provider);
+        foodItem: widget.foodItem,
+        );
 
     return SizedBox(
       height: isTablet ? 140.w : 320.w,
@@ -114,7 +102,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
                   onPressed: () async {
                     var item = await AddItemController().addItem(
                         addItemRequestToJson(AddItemRequest(
-                            itemId: widget.itemId,
+                            itemId: widget.foodItem.id,
                             variantId: variantWidget.selectedVariant!,
                             status: 'pending',
                             quantity: itemCount ?? 1,
@@ -155,7 +143,7 @@ class _FoodItemDialogState extends State<FoodItemDialogWidget> {
       extraPrice = extraPrice + price;
     }
     sumPrice =
-        (widget.currentPrice + variantPrice + extraPrice) * (itemCount ?? 1);
+        (double.parse(widget.foodItem.currentPrice) + variantPrice + extraPrice) * (itemCount ?? 1);
     return sumPrice;
   }
 }

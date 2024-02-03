@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
-import 'package:kitwosd_restro_system/features/provider/item_count_provider.dart';
 import 'package:kitwosd_restro_system/features/splash_screen/splash_screen_page.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,25 +29,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context, child) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => FoodOrderProvider()),
-          ChangeNotifierProvider(create: (context) => ItemCountProvider())
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            progressIndicatorTheme:
-                const ProgressIndicatorThemeData(color: Color(0xffeea734)),
-            textTheme:
-                GoogleFonts.yaldeviTextTheme(Theme.of(context).textTheme),
-            colorScheme:
-                ColorScheme.fromSeed(seedColor: const Color(0xffeea734)),
-            useMaterial3: true,
-          ),
-          home: const SplashScreenPage(),
+      builder: (context, child) => MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          progressIndicatorTheme:
+              const ProgressIndicatorThemeData(color: Color(0xffeea734)),
+          textTheme:
+              GoogleFonts.yaldeviTextTheme(Theme.of(context).textTheme),
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: const Color(0xffeea734)),
+          useMaterial3: true,
         ),
+        home: const SplashScreenPage(),
       ),
       splitScreenMode: true,
       minTextAdapt: true,

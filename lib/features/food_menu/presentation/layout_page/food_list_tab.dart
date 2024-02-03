@@ -26,6 +26,11 @@ class _FoodListTabState extends State<FoodListTab> {
 
   bool isTapped = false;
   SearchController searchController = SearchController();
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +46,7 @@ class _FoodListTabState extends State<FoodListTab> {
         : FoodMenuCategories(
             tableId: widget.tableId,
             onSearchTap: () {
+              widget.onRefresh();
               setState(() {
                 isTapped = true;
               });

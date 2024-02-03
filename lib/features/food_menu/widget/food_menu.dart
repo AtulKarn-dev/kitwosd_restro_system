@@ -8,9 +8,8 @@ import 'dialog_box.dart';
 class FoodMenu extends StatefulWidget {
   List<FoodItem> mainFoodList = [];
   final int? tableId;
-  bool isSearching;
-
-  FoodMenu({super.key, required this.mainFoodList, this.isSearching = false,this.tableId});
+  
+  FoodMenu({super.key, required this.mainFoodList,this.tableId});
 
   @override
   FoodMenuState createState() => FoodMenuState();
@@ -36,8 +35,6 @@ class FoodMenuState extends State<FoodMenu> {
               itemCount: widget.mainFoodList.length,
               itemBuilder: (context, index) {
                 FoodItem foodItem = widget.mainFoodList[index];
-                
-                int id = index;
                 return ListTile(
                   dense: true,
                   visualDensity: const VisualDensity(vertical: 4),
@@ -97,8 +94,8 @@ class FoodMenuState extends State<FoodMenu> {
                         child: TextButton(
                             onPressed: () {
                               dialogBox(
-                                context, id, widget.isSearching,widget.tableId!,
-                                double.parse(foodItem.currentPrice),foodItem.id, 
+                                context,widget.tableId!,
+                                foodItem,
                                 onAddItem
                               );
                             },

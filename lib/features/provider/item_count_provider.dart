@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 
 
-class ItemCountProvider extends ChangeNotifier {
-  int? itemCountVal;
-  int? quantity;
+// class ItemCountProvider extends ChangeNotifier {
+//   int? itemCountVal;
+//   int? quantity;
 
-  void count(int itemCountValue) {
-    itemCountVal = itemCountValue;
-    notifyListeners();
-  }
+//   void count(int itemCountValue) {
+//     itemCountVal = itemCountValue;
+//     notifyListeners();
+//   }
 
-  int itemCount() {
-    quantity = itemCountVal!;
-    return quantity!;
-  }
-}
+//   int itemCount() {
+//     quantity = itemCountVal!;
+//     return quantity!;
+//   }
+// }

@@ -3,21 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/drop_down_widget.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class VariantWidget extends StatefulWidget {
-  final int foodId;
-  final bool isSearching;
-  final FoodOrderProvider provider;
+  final FoodItem foodItem;
   int? selectedVariant;
   double? variantPrice;
 
   VariantWidget(
       {super.key,
-      required this.foodId,
-      required this.isSearching,
-      required this.provider});
+      required this.foodItem,
+      });
 
   @override
   State<VariantWidget> createState() => _VariantWidgetState();
@@ -25,8 +21,8 @@ class VariantWidget extends StatefulWidget {
 
 class _VariantWidgetState extends State<VariantWidget> {
   Future<List<Addon>?> getVariants() {
-    FoodItem item = widget.provider.getItem(widget.foodId, widget.isSearching);
-    return FoodMenuController().getVariants(item.categories.name, item.id);
+    // FoodItem item = widget.provider.getItem(widget.foodId, widget.isSearching);
+    return FoodMenuController().getVariants(widget.foodItem.categories.name, widget.foodItem.id);
   }
 
   @override

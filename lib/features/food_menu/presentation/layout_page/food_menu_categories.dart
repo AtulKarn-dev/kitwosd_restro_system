@@ -9,14 +9,17 @@ class FoodMenuCategories extends StatefulWidget {
   final Function onSearchTap;
   final SearchController searchController;
 
-  const FoodMenuCategories({super.key, required this.tableId, required this.onSearchTap, required this.searchController});
+  const FoodMenuCategories(
+      {super.key,
+      required this.tableId,
+      required this.onSearchTap,
+      required this.searchController});
 
   @override
   State<FoodMenuCategories> createState() => _FoodMenuCategoriesState();
 }
 
 class _FoodMenuCategoriesState extends State<FoodMenuCategories> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +39,17 @@ class _FoodMenuCategoriesState extends State<FoodMenuCategories> {
                     decoration: const BoxDecoration(color: Color(0xffeea734)),
                     child: BackButton(
                       color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        widget.onSearchTap();
+                      },
                       style: ButtonStyle(
                         iconSize: MaterialStateProperty.all(25.r),
                       ),
                     )),
                 SearchWidget(
-                  hintText: 'Search on foodly',
-                  searchController: widget.searchController
-                  ),
+                    hintText: 'Search on foodly',
+                    searchController: widget.searchController),
                 Container(
                     height: 45.w,
                     width: 45.w,

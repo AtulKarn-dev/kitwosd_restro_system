@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
-import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/ripple.dart';
 import '../../../widget/my_chip.dart';
 
@@ -26,8 +25,8 @@ StatefulBuilder searchWidget(BuildContext context) {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<FoodItem> data = snapshot.data!;
-                    FoodOrderProvider.loadSearchList(data);
-                    return FoodMenu(mainFoodList: data, isSearching: true);
+                    // FoodOrderProvider.loadSearchList(data);
+                    return FoodMenu(mainFoodList: data);
                   } else {
                     return const Center(child: CircularProgressIndicator());
                   }
