@@ -16,7 +16,7 @@ Future<Dio> getDioWithToken() async {
 
 Dio getDio() {
   final Dio dio = Dio(BaseOptions(
-    baseUrl: '$restroApi/',
+    baseUrl: restroApi,
     connectTimeout:  const Duration(seconds: 50000 ),
     receiveTimeout:  const Duration(seconds: 50000 ),
   ));

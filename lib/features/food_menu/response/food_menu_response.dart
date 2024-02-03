@@ -12,18 +12,22 @@ String menuItemsResponseToJson(MenuItemsResponse data) =>
 
 class MenuItemsResponse {
   Data data;
+  List<FoodItem> searchItems;
 
   MenuItemsResponse({
     required this.data,
+    required this.searchItems,
   });
 
   factory MenuItemsResponse.fromJson(Map<String, dynamic> json) =>
       MenuItemsResponse(
         data: Data.fromJson(json["data"]),
+        searchItems: List<FoodItem>.from(json["items"].map((x) => FoodItem.fromJson(x))) 
       );
 
   Map<String, dynamic> toJson() => {
         "data": data.toJson(),
+        "items": searchItems.map((e) => e.toJson()),
       };
 }
 
@@ -74,6 +78,7 @@ class Data {
     return json;
   }
 }
+
 class FoodItem {
   int id;
   String title;

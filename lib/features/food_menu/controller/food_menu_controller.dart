@@ -36,9 +36,9 @@ class FoodMenuController {
   Future<List<FoodItem>> getMenuSearchItems() async {
     Response<String>? response = await ApiController.getResponse("menu-items");
     if (response != null) {
-      MenuSearchItemsResponse menuItemsResponse =
-          menuSearchItemsResponseFromJson(response.data!);
-      return menuItemsResponse.data.items;
+      MenuItemsResponse menuItemsResponse =
+          menuItemsResponseFromJson(response.data!);
+      return menuItemsResponse.searchItems;
     } else {
       return [];
     }

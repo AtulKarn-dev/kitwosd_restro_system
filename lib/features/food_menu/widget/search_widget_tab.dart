@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
+import 'package:kitwosd_restro_system/features/provider/food_order_provider.dart';
 import 'package:kitwosd_restro_system/widget/ripple.dart';
 import '../../../widget/my_chip.dart';
 
@@ -9,8 +11,7 @@ String selectedCategories = 'all';
 String selectedDietary = 'any';
 String? price;
 
-StatefulBuilder searchWidget(
-    BuildContext context, FoodMenu menu, List<FoodItem> items) {
+StatefulBuilder searchWidget(BuildContext context) {
   final List<String> entries = ['\$', '\$\$', '\$\$\$', '\$\$\$\$'];
   List<String?> priceRange = ['1', '2', '3', '4'];
   return StatefulBuilder(builder: (context, setState) {
@@ -20,7 +21,18 @@ StatefulBuilder searchWidget(
             flex: 3,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .60,
-              child: menu,
+              child: FutureBuilder<List<FoodItem>?>(
+                future: FoodMenuController().getMenuSearchItems(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<FoodItem> data = snapshot.data!;
+                    FoodOrderProvider.loadSearchList(data);
+                    return FoodMenu(mainFoodList: data, isSearching: true);
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
             )),
         SizedBox(
           width: 20.h,
@@ -55,7 +67,7 @@ StatefulBuilder searchWidget(
                           setState(() {
                             selectedCategories = 'all';
                             setState(() {
-                              menu = FoodMenu(mainFoodList: items);
+                              
                             });
                           });
                         },
@@ -308,12 +320,12 @@ StatefulBuilder searchWidget(
                           });
                         } else {
                           setState(() {
-                            menu = FoodMenu(mainFoodList: items);
+                            
                           });
                         }
                       } else {
                         setState(() {
-                          menu = FoodMenu(mainFoodList: items);
+                          
                         });
                       }
                     },
