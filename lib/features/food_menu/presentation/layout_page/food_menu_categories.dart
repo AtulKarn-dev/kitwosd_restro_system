@@ -9,7 +9,7 @@ class FoodMenuCategories extends StatefulWidget {
   final int tableId;
   final Function onSearchTap;
   final Function onRefreshTap;
-  final TextEditingController searchController;
+  final List<TextEditingController> searchController;
 
   const FoodMenuCategories(
       {super.key,
@@ -53,9 +53,10 @@ class _FoodMenuCategoriesState extends State<FoodMenuCategories> {
                 SearchWidget(
                     onTap: () {
                       widget.onSearchTap();
+                      widget.searchController[1].clear();
                     },
                     hintText: 'Search on foodly',
-                    searchController: widget.searchController),
+                    searchController: widget.searchController[0]),
                 isTablet
                     ? Container(
                         height: 45.w,

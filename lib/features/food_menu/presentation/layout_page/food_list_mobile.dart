@@ -7,7 +7,7 @@ import '../../../../widget/ripple.dart';
 
 class FoodListMobile extends StatefulWidget {
   final int id;
-  const FoodListMobile({super.key,required this.id});
+  const FoodListMobile({super.key, required this.id});
 
   @override
   State<FoodListMobile> createState() => _FoodListMobileState();
@@ -50,12 +50,14 @@ class _FoodListMobileState extends State<FoodListMobile>
                     Container(
                         width: 45,
                         height: 45,
-                        decoration: const BoxDecoration(color: Color(0xffeea734)),
+                        decoration:
+                            const BoxDecoration(color: Color(0xffeea734)),
                         child: BackButton(
                           color: Colors.white,
                           onPressed: isTapped
                               ? () {
-                                  WidgetsBinding.instance.focusManager.primaryFocus
+                                  WidgetsBinding
+                                      .instance.focusManager.primaryFocus
                                       ?.unfocus();
                                   setState(() {
                                     isTapped = false;
@@ -73,8 +75,9 @@ class _FoodListMobileState extends State<FoodListMobile>
                             controller: text1,
                             onTap: () {},
                             constraints: BoxConstraints(maxWidth: 240.w),
-                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r))),
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r))),
                             leading: const Icon(
                               Icons.search,
                               color: Color(0xff868686),
@@ -124,10 +127,12 @@ class _FoodListMobileState extends State<FoodListMobile>
                             ),
                             hintText: 'search on foodly',
                             hintStyle: MaterialStateProperty.all(TextStyle(
-                                color: const Color(0xff949494), fontSize: 14.sp)),
+                                color: const Color(0xff949494),
+                                fontSize: 14.sp)),
                             elevation: const MaterialStatePropertyAll(1),
-                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r))),
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r))),
                             constraints: BoxConstraints(maxWidth: 290.w),
                           ),
                     if (isTapped == true)

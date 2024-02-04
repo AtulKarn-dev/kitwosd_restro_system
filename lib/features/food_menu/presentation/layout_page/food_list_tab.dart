@@ -19,10 +19,12 @@ class _FoodListTabState extends State<FoodListTab> {
   }
 
   bool isTapped = false;
-  TextEditingController searchController = TextEditingController();
+  TextEditingController searchController1 = TextEditingController();
+  TextEditingController searchController2 = TextEditingController();
   @override
   void dispose() {
-    searchController.dispose();
+    searchController1.dispose();
+    searchController2.dispose();
     super.dispose();
   }
 
@@ -31,15 +33,15 @@ class _FoodListTabState extends State<FoodListTab> {
     return isTapped
         ? FoodSearchOrder(
             tableId: widget.tableId,
-            onSearchTap: () {
+            onBackTap: () {
               setState(() {
                 isTapped = false;
               });
             },
-            searchController: searchController)
+            searchController: searchController1)
         : FoodMenuCategories(
             tableId: widget.tableId,
-            onRefreshTap: (){
+            onRefreshTap: () {
               widget.onRefresh();
             },
             onSearchTap: () {
@@ -47,6 +49,6 @@ class _FoodListTabState extends State<FoodListTab> {
                 isTapped = true;
               });
             },
-            searchController: searchController);
+            searchController: [searchController1,searchController2]);
   }
 }

@@ -11,13 +11,13 @@ import 'package:kitwosd_restro_system/widget/ripple.dart';
 
 class FoodSearchOrder extends StatefulWidget {
   final int tableId;
-  final Function onSearchTap;
+  final Function onBackTap;
   final TextEditingController searchController;
 
   const FoodSearchOrder(
       {super.key,
       required this.tableId,
-      required this.onSearchTap,
+      required this.onBackTap,
       required this.searchController});
 
   @override
@@ -49,23 +49,26 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                       onPressed: () {
                         WidgetsBinding.instance.focusManager.primaryFocus
                             ?.unfocus();
-                        widget.onSearchTap();
+                        widget.onBackTap();
                       },
                       style: ButtonStyle(
                         iconSize: MaterialStateProperty.all(25.r),
-                        visualDensity: !isTablet? VisualDensity(horizontal: 1.w) : null,
+                        visualDensity:
+                            !isTablet ? VisualDensity(horizontal: 1.w) : null,
                       ),
                     )),
                 SearchBar(
                   controller: widget.searchController,
-                  constraints:isTablet? BoxConstraints(minHeight: 45.h, maxWidth: 255.w):
-                                        BoxConstraints(maxWidth: 240.w),
+                  constraints: isTablet
+                      ? BoxConstraints(minHeight: 45.h, maxWidth: 255.w)
+                      : BoxConstraints(maxWidth: 240.w, minHeight: 45.h),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(isTablet? 10: 8.r))),
+                      borderRadius:
+                          BorderRadius.circular(isTablet ? 10 : 8.r))),
                   leading: Icon(
                     Icons.search,
                     color: const Color(0xff868686),
-                    size: isTablet? 24.r : null,
+                    size: isTablet ? 24.r : null,
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -88,25 +91,27 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                               ))
                         ]
                       : null,
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 80.h)),
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      horizontal: isTablet ? 80.h : 10.h,
+                      vertical: isTablet ? double.infinity : 5.w)),
                 ),
-                isTablet? 
-                Container(
-                    height: 45.w,
-                    width: 45.w,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/restro_kit-removebg-preview.png',
-                      ),
-                    ))):
-                    Ripple(
+                isTablet
+                    ? Container(
+                        height: 45.w,
+                        width: 45.w,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/restro_kit-removebg-preview.png',
+                          ),
+                        )))
+                    : Ripple(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FoodFilterMobile()));
+                                  builder: (context) =>
+                                      const FoodFilterMobile()));
                         },
                         child: Container(
                           height: 45,
@@ -123,18 +128,20 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                         ),
                       ),
               ]),
-              isTablet? searchWidget(context):
-                        FutureBuilder<List<FoodItem>?>(
-                future: FoodMenuController().getMenuSearchItems(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<FoodItem> data = snapshot.data!;
-                    return FoodMenu(mainFoodList: data);
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
+              isTablet
+                  ? searchWidget(context)
+                  : FutureBuilder<List<FoodItem>?>(
+                      future: FoodMenuController().getMenuSearchItems(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<FoodItem> data = snapshot.data!;
+                          return FoodMenu(mainFoodList: data);
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
             ],
           ),
         ),
