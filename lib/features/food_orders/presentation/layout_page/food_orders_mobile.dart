@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/presentation/layout_page/food_list_mobile.dart';
+import 'package:kitwosd_restro_system/features/food_menu/presentation/layout_page/food_list_tab.dart';
 
 class FoodOrdersMobile extends StatefulWidget {
   final int id;
@@ -72,7 +73,7 @@ class _FoodOrdersMobileState extends State<FoodOrdersMobile> {
       floatingActionButton:  FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => FoodListMobile(id: widget.id)));
+              MaterialPageRoute(builder: (context) => FoodListTab(tableId: widget.id,onRefresh: (){},)));
         },
         foregroundColor: Colors.white,
         backgroundColor: const Color.fromARGB(255, 231, 62, 118),

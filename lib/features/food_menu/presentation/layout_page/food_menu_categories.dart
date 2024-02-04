@@ -3,15 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/menu_tab_bar_widget.dart';
 import 'package:kitwosd_restro_system/features/food_orders/widget/search_widget.dart';
+import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class FoodMenuCategories extends StatefulWidget {
   final int tableId;
   final Function onSearchTap;
-  final SearchController searchController;
+  final Function onRefreshTap;
+  final TextEditingController searchController;
 
   const FoodMenuCategories(
       {super.key,
       required this.tableId,
+      required this.onRefreshTap,
       required this.onSearchTap,
       required this.searchController});
 
@@ -41,24 +44,29 @@ class _FoodMenuCategoriesState extends State<FoodMenuCategories> {
                       color: Colors.white,
                       onPressed: () {
                         Navigator.pop(context);
-                        widget.onSearchTap();
+                        widget.onRefreshTap();
                       },
                       style: ButtonStyle(
                         iconSize: MaterialStateProperty.all(25.r),
                       ),
                     )),
                 SearchWidget(
+                    onTap: () {
+                      widget.onSearchTap();
+                    },
                     hintText: 'Search on foodly',
                     searchController: widget.searchController),
-                Container(
-                    height: 45.w,
-                    width: 45.w,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/restro_kit-removebg-preview.png',
-                      ),
-                    ))),
+                isTablet
+                    ? Container(
+                        height: 45.w,
+                        width: 45.w,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/restro_kit-removebg-preview.png',
+                          ),
+                        )))
+                    : Container(),
               ]),
               FutureBuilder<List<String>?>(
                 future: FoodMenuController().getMenuCategories(),

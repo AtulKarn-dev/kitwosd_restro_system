@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
+import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
+import 'package:kitwosd_restro_system/features/food_menu/widget/food_filter.dart';
+import 'package:kitwosd_restro_system/features/food_menu/widget/food_filter_mobile.dart';
+import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/search_widget_tab.dart';
+import 'package:kitwosd_restro_system/widget/helper/function.dart';
+import 'package:kitwosd_restro_system/widget/ripple.dart';
 
 class FoodSearchOrder extends StatefulWidget {
   final int tableId;
   final Function onSearchTap;
-  final SearchController searchController;
+  final TextEditingController searchController;
 
   const FoodSearchOrder(
       {super.key,
@@ -46,17 +53,19 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                       },
                       style: ButtonStyle(
                         iconSize: MaterialStateProperty.all(25.r),
+                        visualDensity: !isTablet? VisualDensity(horizontal: 1.w) : null,
                       ),
                     )),
                 SearchBar(
                   controller: widget.searchController,
-                  constraints: BoxConstraints(minHeight: 45.h, maxWidth: 255.w),
+                  constraints:isTablet? BoxConstraints(minHeight: 45.h, maxWidth: 255.w):
+                                        BoxConstraints(maxWidth: 240.w),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                      borderRadius: BorderRadius.circular(isTablet? 10: 8.r))),
                   leading: Icon(
                     Icons.search,
                     color: const Color(0xff868686),
-                    size: 24.r,
+                    size: isTablet? 24.r : null,
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -82,6 +91,7 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 80.h)),
                 ),
+                isTablet? 
                 Container(
                     height: 45.w,
                     width: 45.w,
@@ -90,9 +100,41 @@ class _FoodSearchOrderState extends State<FoodSearchOrder> {
                       image: AssetImage(
                         'assets/images/restro_kit-removebg-preview.png',
                       ),
-                    ))),
+                    ))):
+                    Ripple(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const FoodFilterMobile()));
+                        },
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          padding: EdgeInsets.zero,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xffeea734),
+                          ),
+                          child: const Icon(
+                            Icons.filter_alt_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
               ]),
-              searchWidget(context)
+              isTablet? searchWidget(context):
+                        FutureBuilder<List<FoodItem>?>(
+                future: FoodMenuController().getMenuSearchItems(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<FoodItem> data = snapshot.data!;
+                    return FoodMenu(mainFoodList: data);
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
             ],
           ),
         ),

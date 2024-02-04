@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitwosd_restro_system/features/food_menu/controller/food_menu_controller.dart';
 import 'package:kitwosd_restro_system/features/food_menu/response/food_menu_response.dart';
 import 'package:kitwosd_restro_system/features/food_menu/widget/food_menu.dart';
-import 'package:kitwosd_restro_system/features/food_menu/widget/order_items_widget.dart';
-
+import 'package:kitwosd_restro_system/widget/helper/function.dart';
 class MenuTabBarWidget extends StatefulWidget {
   final int tableId;
   final List<String> categories;
@@ -59,7 +58,7 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                   (index) => Tab(
                         child: Text(
                           categories[index],
-                          style: TextStyle(fontSize: 7.sp),
+                          style: TextStyle(fontSize: isTablet? 7.sp : 14),
                         ),
                       ))),
         ),
@@ -84,14 +83,18 @@ class _MenuTabBarWidgetState extends State<MenuTabBarWidget>
                           // FoodOrderProvider.loadFoodList(data);
                           return TabBarView(
                               controller: tabController,
-                              children: List.generate(categories.length,
-                                  (index) => FoodMenu(mainFoodList: data,tableId: widget.tableId,)));
+                              children: List.generate(
+                                  categories.length,
+                                  (index) => FoodMenu(
+                                        mainFoodList: data,
+                                        tableId: widget.tableId,
+                                      )));
                         }
                     }
                   },
                 ),
               ),
-              OrderItemsStatus(id: widget.tableId),
+              // OrderItemsStatus(id: widget.tableId),
             ],
           ),
         ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitwosd_restro_system/widget/helper/function.dart';
 
 class SearchWidget extends StatelessWidget {
   final String hintText;
-  final SearchController? searchController;
+  final TextEditingController? searchController;
   final VoidCallback? onTap;
   final Function(String)? onChange;
 
@@ -17,19 +18,20 @@ class SearchWidget extends StatelessWidget {
       onTap: onTap,
       onChanged: onChange,
       elevation: MaterialStateProperty.all(1),
-      constraints: BoxConstraints(minHeight: 45.h, maxWidth: 255.w),
+      constraints: isTablet? BoxConstraints(minHeight: 45.h, maxWidth: 255.w):
+                             BoxConstraints(maxWidth: 290.w),
       shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(isTablet? 10 : 8.r))),
       leading: Icon(
         Icons.search,
         color: const Color(0xff868686),
-        size: 24.r,
+        size: isTablet? 24.r : 20.r,
       ),
       hintText: hintText,
       padding:
-          MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 80.h)),
+          MaterialStateProperty.all( isTablet? EdgeInsets.symmetric(horizontal: 80.h):EdgeInsets.only(left: 20.w)),
       hintStyle: MaterialStateProperty.all(
-          TextStyle(fontSize: 6.sp, color: const Color(0xff949494))),
+          TextStyle(fontSize: isTablet? 6.sp : 14.sp, color: const Color(0xff949494))),
     );
   }
 }
